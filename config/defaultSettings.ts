@@ -1,5 +1,4 @@
 import { Settings as LayoutSettings } from '@ant-design/pro-layout';
-import logo from './../public/appcheck.svg';
 
 // const Settings: LayoutSettings & {
 //   pwa?: boolean;
@@ -34,7 +33,7 @@ const Settings: LayoutSettings & {
   splitMenus: false,
   footerRender: false,
   title: 'Android App Check',
-  logo: logo,
+  logo: '/appcheck.svg',
 }
 
 export default Settings;

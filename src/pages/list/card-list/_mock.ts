@@ -1,29 +1,40 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { Request, Response } from 'express';
 import type { CardListItemDataType } from './data.d';
-import meituan from './../../../../public/logos/meituan.png'
 
 const titles = [
   '支付宝',
   '百度',
-  'Angular',
-  'Ant Design',
-  'Ant Design Pro',
-  'Bootstrap',
-  'React',
-  'Vue',
-  'Webpack',
+  '网易云',
+  '腾讯新闻',
+  '美团',
+  '携程',
+  '中国移动',
+  '中国银行'
+  // 'Angular',
+  // 'Ant Design',
+  // 'Ant Design Pro',
+  // 'Bootstrap',
+  // 'React',
+  // 'Vue',
+  // 'Webpack',
 ];
 const avatars = [
-  'https://gw.alipayobjects.com/zos/rmsportal/WdGqmHpayyMjiEhcKoVE.png', // Alipay
-  'https://www.baidu.com/favicon.ico',
-  'https://gw.alipayobjects.com/zos/rmsportal/zOsKZmFRdUtvpqCImOVY.png', // Angular
-  'https://gw.alipayobjects.com/zos/rmsportal/dURIMkkrRFpPgTuzkwnB.png', // Ant Design
-  'https://gw.alipayobjects.com/zos/rmsportal/sfjbOqnsXXJgNCjCzDBL.png', // Ant Design Pro
-  'https://gw.alipayobjects.com/zos/rmsportal/siCrBXXhmvTQGWPNLBow.png', // Bootstrap
-  'https://gw.alipayobjects.com/zos/rmsportal/kZzEzemZyKLKFsojXItE.png', // React
-  'https://gw.alipayobjects.com/zos/rmsportal/ComBAopevLwENQdKWiIn.png', // Vue
-  'https://gw.alipayobjects.com/zos/rmsportal/nxkuOJlFJuAUhzlMTCEe.png', // Webpack
+  'https://gw.alipayobjects.com/zos/rmsportal/WdGqmHpayyMjiEhcKoVE.png', // 支付宝
+  'https://www.baidu.com/favicon.ico', // 百度
+  'https://i.postimg.cc/fbg0Y9bJ/wangyiyun.png', // 网易云
+  'https://i.postimg.cc/wBk6D8TM/tengxun.png',
+  'https://i.postimg.cc/fbR4n4CG/meituan.png',
+  'https://i.postimg.cc/mZYGHSP6/xiecheng.png',
+  'https://i.postimg.cc/pdGRTQL1/yidong.png',
+  'https://i.postimg.cc/28hWZyvx/chinabank.png',
+  // 'https://gw.alipayobjects.com/zos/rmsportal/zOsKZmFRdUtvpqCImOVY.png', // Angular
+  // 'https://gw.alipayobjects.com/zos/rmsportal/dURIMkkrRFpPgTuzkwnB.png', // Ant Design
+  // 'https://gw.alipayobjects.com/zos/rmsportal/sfjbOqnsXXJgNCjCzDBL.png', // Ant Design Pro
+  // 'https://gw.alipayobjects.com/zos/rmsportal/siCrBXXhmvTQGWPNLBow.png', // Bootstrap
+  // 'https://gw.alipayobjects.com/zos/rmsportal/kZzEzemZyKLKFsojXItE.png', // React
+  // 'https://gw.alipayobjects.com/zos/rmsportal/ComBAopevLwENQdKWiIn.png', // Vue
+  // 'https://gw.alipayobjects.com/zos/rmsportal/nxkuOJlFJuAUhzlMTCEe.png', // Webpack
 ];
 
 const covers = [
