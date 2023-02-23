@@ -445,10 +445,10 @@ const Advanced: FC = () => {
         headerTitle="应用版本列表"
         toolBarRender={() => [
           // <Button key="show">查看日志</Button>,
-          <Button key="out">
-            导出数据
-            <DownOutlined />
-          </Button>,
+          // <Button key="out">
+          //   导出数据
+          //   <DownOutlined />
+          // </Button>,
           <Button
             type="primary"
             key="primary"
@@ -472,10 +472,10 @@ const Advanced: FC = () => {
         headerTitle="测试方法列表"
         toolBarRender={() => [
           // <Button key="show">查看日志</Button>,
-          <Button key="out">
-            导出数据
-            <DownOutlined />
-          </Button>,
+          // <Button key="out">
+          //   导出数据
+          //   <DownOutlined />
+          // </Button>,
           <Button
             type="primary"
             key="primary"
@@ -499,10 +499,10 @@ const Advanced: FC = () => {
         headerTitle="权限申请记录"
         toolBarRender={() => [
           // <Button key="show">查看日志</Button>,
-          <Button key="out">
-            导出数据
-            <DownOutlined />
-          </Button>,
+          // <Button key="out">
+          //   导出数据
+          //   <DownOutlined />
+          // </Button>,
           // <Button type="primary" key="primary">
           //   <PlusOutlined />
           //   添加测试方法
@@ -640,10 +640,10 @@ const Advanced: FC = () => {
                   headerTitle="审批历史记录"
                   toolBarRender={() => [
                     // <Button key="show">查看日志</Button>,
-                    <Button key="out">
-                      导出数据
-                      <DownOutlined />
-                    </Button>,
+                    // <Button key="out">
+                    //   导出数据
+                    //   <DownOutlined />
+                    // </Button>,
                     // <Button type="primary" key="primary">
                     //   创建应用
                     // </Button>,

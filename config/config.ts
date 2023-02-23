@@ -139,7 +139,7 @@ export default defineConfig({
           component: './list/table-list',
         },
         {
-          name: 'advanced',
+          // name: 'advanced',
           icon: 'smile',
           path: '/list/advanced',
           component: './list/advanced',

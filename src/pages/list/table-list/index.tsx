@@ -18,6 +18,7 @@ import UpdateForm from './components/UpdateForm';
 import { rule, addRule, updateRule, removeRule } from './service';
 import type { TableListItem, TableListPagination } from './data';
 import OperationModal from './components/OperationModal';
+import { history } from 'umi';
 /**
  * 添加节点
  *
@@ -262,11 +263,12 @@ const TableList: React.FC = () => {
           key="editable"
           type="primary"
           onClick={() => {
-            action?.startEditable?.(record.key);
+            // action?.startEditable?.(record.key);
+            history.push('/list/advanced')
           }}
           disabled={record.authority !== '管理者'}
         >
-          编辑
+          管理应用
         </Button>,
       ],
     },
