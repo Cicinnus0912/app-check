@@ -154,26 +154,26 @@ const advancedOperation3 = [
   //   createdAt: '2022-08-16  20:13:12',
   //   memo: '-',
   // },
-  {
-    avatar: 'https://gw.alipayobjects.com/zos/rmsportal/WdGqmHpayyMjiEhcKoVE.png',
-    key: 'user02',
-    authority: '管理者',
-    description: '支付宝,全球领先的独立第三方支付平台',
-    name: '支付宝',
-    status: 'agree',
-    createdAt: '2022-11-16  20:13:12',
-    memo: '开发需要',
-  },
-  {
-    avatar: 'https://gw.alipayobjects.com/zos/rmsportal/WdGqmHpayyMjiEhcKoVE.png',
-    key: 'user03',
-    authority: '测试者',
-    description: '支付宝,全球领先的独立第三方支付平台',
-    name: '支付宝',
-    status: 'agree',
-    createdAt: '2022-11-21  18:22:34',
-    memo: '开发需要',
-  },
+  // {
+  //   avatar: 'https://gw.alipayobjects.com/zos/rmsportal/WdGqmHpayyMjiEhcKoVE.png',
+  //   key: 'user02',
+  //   authority: '管理者',
+  //   description: '支付宝,全球领先的独立第三方支付平台',
+  //   name: '支付宝',
+  //   status: 'agree',
+  //   createdAt: '2022-11-16  20:13:12',
+  //   memo: '开发需要',
+  // },
+  // {
+  //   avatar: 'https://gw.alipayobjects.com/zos/rmsportal/WdGqmHpayyMjiEhcKoVE.png',
+  //   key: 'user03',
+  //   authority: '测试者',
+  //   description: '支付宝,全球领先的独立第三方支付平台',
+  //   name: '支付宝',
+  //   status: 'agree',
+  //   createdAt: '2022-11-21  18:22:34',
+  //   memo: '开发需要',
+  // },
   {
     avatar: 'https://gw.alipayobjects.com/zos/rmsportal/WdGqmHpayyMjiEhcKoVE.png',
     key: 'user04',
@@ -208,7 +208,6 @@ const advancedOperation3 = [
 ];
 
 function getProfileAppData(req: Request, res: Response) {
-  console.log(11111111111)
   const result = {
     data: {
       advancedOperation,

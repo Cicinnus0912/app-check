@@ -262,9 +262,9 @@ const TableList: React.FC = () => {
                 {selectedRowsState.length}
               </a>{' '}
               项 &nbsp;&nbsp;
-              <span>
+              {/* <span>
                 服务调用次数总计 {selectedRowsState.reduce((pre, item) => pre + item.callNo!, 0)} 万
-              </span>
+              </span> */}
             </div>
           }
         >
@@ -277,7 +277,7 @@ const TableList: React.FC = () => {
           >
             批量删除
           </Button>
-          <Button type="primary">批量审批</Button>
+          {/* <Button type="primary">批量审批</Button> */}
         </FooterToolbar>
       )}
       <ModalForm

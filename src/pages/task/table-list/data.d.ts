@@ -14,6 +14,8 @@ export type TableListItem = {
   taskId: string;
   method: string;
   version: string;
+  page: string;
+  kongjian: string;
 };
 
 export type TableListPagination = {

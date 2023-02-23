@@ -26,6 +26,66 @@ const genList = (current: number, pageSize: number) => {
     2: 'error',
     3: 'close',
   };
+  const pages = [
+    'com.example.testapp.MainActivity',
+    'com.example.testapp.Activity2_1',
+    'com.example.testapp.Activity2_2',
+    'com.example.testapp.Activity3_1',
+    'com.example.testapp.Activity3_2',
+    'com.example.testapp.Activity4_1',
+    'com.example.testapp.Activity4_2',
+    'com.example.testapp.Activity5_1',
+    'com.example.testapp.Activity5_2',
+  ];
+  const kongjians = [
+    '<node index="1" text="" resource-id="" class="android.widget.ImageView" package="com.example.testapp" content-desc="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" long-clickable="false" password="false" selected="false" visible-to-user="true" bounds="[413,250][826,663]" />',
+    '<node index="1" text="" resource-id="" class="android.widget.ImageView" package="com.example.testapp" content-desc="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" long-clickable="false" password="false" selected="false" visible-to-user="true" bounds="[413,250][826,663]" />',
+    '<node index="1" text="" resource-id="" class="android.widget.ImageView" package="com.example.testapp" content-desc="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" long-clickable="false" password="false" selected="false" visible-to-user="true" bounds="[413,250][826,663]" />',
+    '<node index="1" text="" resource-id="" class="android.widget.ImageView" package="com.example.testapp" content-desc="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" long-clickable="false" password="false" selected="false" visible-to-user="true" bounds="[413,250][826,663]" />',
+    '<node index="1" text="" resource-id="" class="android.widget.ImageView" package="com.example.testapp" content-desc="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" long-clickable="false" password="false" selected="false" visible-to-user="true" bounds="[413,250][826,663]" />',
+    '<node index="1" text="" resource-id="" class="android.widget.ImageView" package="com.example.testapp" content-desc="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" long-clickable="false" password="false" selected="false" visible-to-user="true" bounds="[413,250][826,663]" />',
+    '<node index="1" text="" resource-id="" class="android.widget.ImageView" package="com.example.testapp" content-desc="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" long-clickable="false" password="false" selected="false" visible-to-user="true" bounds="[413,250][826,663]" />',
+    '<node index="1" text="" resource-id="" class="android.widget.ImageView" package="com.example.testapp" content-desc="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" long-clickable="false" password="false" selected="false" visible-to-user="true" bounds="[413,250][826,663]" />',
+    '<node index="1" text="" resource-id="" class="android.widget.ImageView" package="com.example.testapp" content-desc="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" long-clickable="false" password="false" selected="false" visible-to-user="true" bounds="[413,250][826,663]" />',
+  ]
+  const tmp = [
+    {
+      page: 'com.example.testapp.MainActivity',
+      kongjian: '<node index="1" text="" resource-id="" class="android.widget.ImageView" package="com.example.testapp" content-desc="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" long-clickable="false" password="false" selected="false" visible-to-user="true" bounds="[413,250][826,663]" />',
+    },
+    {
+      pages: 'com.example.testapp.Activity2_1',
+      kongjian: '<node index="1" text="" resource-id="" class="android.widget.ImageView" package="com.example.testapp" content-desc="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" long-clickable="false" password="false" selected="false" visible-to-user="true" bounds="[413,250][826,663]" />',
+    },
+    {
+      page: 'com.example.testapp.Activity2_2',
+      kongjian: '<node index="1" text="" resource-id="" class="android.widget.ImageView" package="com.example.testapp" content-desc="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" long-clickable="false" password="false" selected="false" visible-to-user="true" bounds="[413,250][826,663]" />',
+    },
+    {
+      page: 'com.example.testapp.Activity3_1',
+      kongjian: '<node index="1" text="" resource-id="" class="android.widget.ImageView" package="com.example.testapp" content-desc="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" long-clickable="false" password="false" selected="false" visible-to-user="true" bounds="[413,250][826,663]" />',
+    },
+    {
+      page: 'com.example.testapp.Activity3_2',
+      kongjian: '<node index="1" text="" resource-id="" class="android.widget.ImageView" package="com.example.testapp" content-desc="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" long-clickable="false" password="false" selected="false" visible-to-user="true" bounds="[413,250][826,663]" />',
+    },
+    {
+      page: 'com.example.testapp.Activity4_1',
+      kongjian: '<node index="1" text="" resource-id="" class="android.widget.ImageView" package="com.example.testapp" content-desc="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" long-clickable="false" password="false" selected="false" visible-to-user="true" bounds="[413,250][826,663]" />',
+    },
+    {
+      page: 'com.example.testapp.Activity4_2',
+      kongjian: '<node index="1" text="" resource-id="" class="android.widget.ImageView" package="com.example.testapp" content-desc="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" long-clickable="false" password="false" selected="false" visible-to-user="true" bounds="[413,250][826,663]" />',
+    },
+    {
+      page: 'com.example.testapp.Activity5_1',
+      kongjian: '<node index="1" text="" resource-id="" class="android.widget.ImageView" package="com.example.testapp" content-desc="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" long-clickable="false" password="false" selected="false" visible-to-user="true" bounds="[413,250][826,663]" />',
+    },
+    {
+      page: 'com.example.testapp.Activity5_2',
+      kongjian: '<node index="1" text="" resource-id="" class="android.widget.ImageView" package="com.example.testapp" content-desc="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" long-clickable="false" password="false" selected="false" visible-to-user="true" bounds="[413,250][826,663]" />',
+    }
+  ]
   const taskList = [
     {
       version: 'version 1.0.0',
@@ -35,6 +95,9 @@ const genList = (current: number, pageSize: number) => {
       method: '图片替代文本检测',
       progress: 87,
       createdAt: '2022-11-15 08:38:42',
+      page: 'com.example.testapp.MainActivity',
+      kongjian:
+        '<node index="1" text="" resource-id="" class="android.widget.ImageView" package="com.example.testapp" content-desc="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" long-clickable="false" password="false" selected="false" visible-to-user="true" bounds="[413,250][826,663]" />',
     },
     {
       version: 'version 1.0.0',
@@ -44,6 +107,8 @@ const genList = (current: number, pageSize: number) => {
       method: '应用崩溃检测',
       createdAt: '2022-11-15 10:28:35',
       progress: 100,
+      page: tmp,
+      kongjian: kongjians,
     },
     {
       version: 'version 1.0.0',
@@ -53,6 +118,9 @@ const genList = (current: number, pageSize: number) => {
       progress: 100,
       createdAt: '2022-11-13 14:38:42',
       method: '图片替代文本检测',
+      page: 'com.example.testapp.Activity2_2',
+      kongjian:
+        '<node index="1" text="" resource-id="" class="android.widget.ImageView" package="com.example.testapp" content-desc="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" long-clickable="false" password="false" selected="false" visible-to-user="true" bounds="[413,250][826,663]" />',
     },
     {
       version: 'version 1.0.0',
@@ -62,6 +130,9 @@ const genList = (current: number, pageSize: number) => {
       createdAt: '2022-11-13 14:35:02',
       progress: 100,
       method: '应用崩溃检测',
+      page: 'com.example.testapp.Activity3_1',
+      kongjian:
+        '<node index="1" text="" resource-id="" class="android.widget.ImageView" package="com.example.testapp" content-desc="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" long-clickable="false" password="false" selected="false" visible-to-user="true" bounds="[413,250][826,663]" />',
     },
     {
       version: 'version 1.0.0',
@@ -71,7 +142,10 @@ const genList = (current: number, pageSize: number) => {
       createdAt: '2022-11-08 20:14:32',
       progress: 10,
       method: '图片替代文本检测',
-    },
+      page: 'com.example.testapp.Activity3_2',
+      kongjian:
+        '<node index="1" text="" resource-id="" class="android.widget.ImageView" package="com.example.testapp" content-desc="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" long-clickable="false" password="false" selected="false" visible-to-user="true" bounds="[413,250][826,663]" />',
+      },
     {
       version: 'version 1.0.0',
       name: '遍历测试应用',
@@ -80,6 +154,9 @@ const genList = (current: number, pageSize: number) => {
       createdAt: '2022-11-06 11:24:52',
       progress: 100,
       method: '图片替代文本检测',
+      page: 'com.example.testapp.Activity4_1',
+      kongjian:
+        '<node index="1" text="" resource-id="" class="android.widget.ImageView" package="com.example.testapp" content-desc="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" long-clickable="false" password="false" selected="false" visible-to-user="true" bounds="[413,250][826,663]" />',
     },
   ];
   const appList = [
@@ -146,6 +223,8 @@ const genList = (current: number, pageSize: number) => {
       progress: taskList[i].progress,
       method: taskList[i].method,
       version: taskList[i].version,
+      page: taskList[i].page,
+      kongjian: taskList[i].kongjian,
       // avatar: taskList[i].avatar,
       key: i,
       // disabled: i % 6 === 0,

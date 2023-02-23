@@ -9,6 +9,8 @@ import {
   Badge,
   Button,
   Card,
+  Col,
+  Row,
   Statistic,
   Descriptions,
   Divider,
@@ -23,86 +25,38 @@ import {
   Image,
   Tag,
   Space,
+  Drawer,
+  message
 } from 'antd';
-import { GridContent, PageContainer, RouteContext } from '@ant-design/pro-layout';
+import { GridContent, PageContainer, RouteContext, FooterToolbar } from '@ant-design/pro-layout';
 import type { FC } from 'react';
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useRef } from 'react';
 import { ProTable } from '@ant-design/pro-table';
 // import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import classNames from 'classnames';
 import { useRequest } from 'umi';
-import type { AdvancedProfileData } from './data.d';
+import type { AdvancedProfileData, TableListItem, TableListPagination } from './data.d';
+import { rule, addRule, updateRule, removeRule } from './service';
+import type { ProColumns, ActionType } from '@ant-design/pro-table';
+import type { FormValueType } from './components/UpdateForm';
+import UpdateForm from './components/UpdateForm';
 import { queryAppProfile } from './service';
+import type { ProDescriptionsItemProps } from '@ant-design/pro-descriptions';
+import ProDescriptions from '@ant-design/pro-descriptions';
 import styles from './style.less';
-import {
+import ProForm, {
   ModalForm,
   ProFormText,
   ProFormTextArea,
   ProFormUploadButton,
   ProFormSelect,
+  ProFormDatePicker,
   ProFormRadio,
 } from '@ant-design/pro-form';
-
-const { Step } = Steps;
-const ButtonGroup = Button.Group;
-
-const menu = (
-  <Menu>
-    <Menu.Item key="1">选项一</Menu.Item>
-    <Menu.Item key="2">选项二</Menu.Item>
-    <Menu.Item key="3">选项三</Menu.Item>
-  </Menu>
-);
-
-const mobileMenu = (
-  <Menu>
-    <Menu.Item key="1">操作一</Menu.Item>
-    <Menu.Item key="2">操作二</Menu.Item>
-    <Menu.Item key="3">选项一</Menu.Item>
-    <Menu.Item key="4">选项二</Menu.Item>
-    <Menu.Item key="">选项三</Menu.Item>
-  </Menu>
-);
-
-const action = (
-  <RouteContext.Consumer>
-    {({ isMobile }) => {
-      if (isMobile) {
-        return (
-          <Dropdown.Button
-            type="primary"
-            icon={<DownOutlined />}
-            overlay={mobileMenu}
-            placement="bottomRight"
-          >
-            主操作
-          </Dropdown.Button>
-        );
-      }
-      return (
-        <Fragment>
-          <ButtonGroup>
-            <Button>操作一</Button>
-            <Button>操作二</Button>
-            <Dropdown overlay={menu} placement="bottomRight">
-              <Button>
-                <EllipsisOutlined />
-              </Button>
-            </Dropdown>
-          </ButtonGroup>
-          <Button type="primary">主操作</Button>
-        </Fragment>
-      );
-    }}
-  </RouteContext.Consumer>
-);
-
-const extra = (
-  <div className={styles.moreInfo}>
-    <Statistic title="状态" value="待审批" />
-    <Statistic title="订单金额" value={568.08} prefix="¥" />
-  </div>
-);
+// 引入编辑器组件
+import BraftEditor from 'braft-editor';
+// 引入编辑器样式
+import 'braft-editor/dist/index.css';
 
 const description = (
   <RouteContext.Consumer>
@@ -128,49 +82,86 @@ const description = (
   </RouteContext.Consumer>
 );
 
-const desc1 = (
-  <div className={classNames(styles.textSecondary, styles.stepDescription)}>
-    <Fragment>
-      曲丽丽
-      <DingdingOutlined style={{ marginLeft: 8 }} />
-    </Fragment>
-    <div>2016-12-12 12:32</div>
-  </div>
-);
+/**
+ * 添加节点
+ *
+ * @param fields
+ */
 
-const desc2 = (
-  <div className={styles.stepDescription}>
-    <Fragment>
-      周毛毛
-      <DingdingOutlined style={{ color: '#00A0E9', marginLeft: 8 }} />
-    </Fragment>
-    <div>
-      <a href="">催一下</a>
-    </div>
-  </div>
-);
+const handleAdd = async (fields: TableListItem) => {
+  const hide = message.loading('正在添加');
 
-const popoverContent = (
-  <div style={{ width: 160 }}>
-    吴加号
-    <span className={styles.textSecondary} style={{ float: 'right' }}>
-      <Badge status="default" text={<span style={{ color: 'rgba(0, 0, 0, 0.45)' }}>未响应</span>} />
-    </span>
-    <div className={styles.textSecondary} style={{ marginTop: 4 }}>
-      耗时：2小时25分钟
-    </div>
-  </div>
-);
-
-const customDot = (dot: React.ReactNode, { status }: { status: string }) => {
-  if (status === 'process') {
-    return (
-      <Popover placement="topLeft" arrowPointAtCenter content={popoverContent}>
-        <span>{dot}</span>
-      </Popover>
-    );
+  try {
+    await addRule({ ...fields });
+    hide();
+    message.success('添加成功');
+    return true;
+  } catch (error) {
+    hide();
+    message.error('添加失败请重试！');
+    return false;
   }
-  return dot;
+};
+/**
+ * 更新节点
+ *
+ * @param fields
+ */
+
+const handleUpdate = async (fields: FormValueType, currentRow?: TableListItem) => {
+  const hide = message.loading('正在配置');
+
+  try {
+    await updateRule({
+      ...currentRow,
+      ...fields,
+    });
+    hide();
+    message.success('配置成功');
+    return true;
+  } catch (error) {
+    hide();
+    message.error('配置失败请重试！');
+    return false;
+  }
+};
+/**
+ * 删除节点
+ *
+ * @param selectedRows
+ */
+
+const handleRemove = async (selectedRows: TableListItem[]) => {
+  const hide = message.loading('正在删除');
+  if (!selectedRows) return true;
+
+  try {
+    await removeRule({
+      key: selectedRows.map((row) => row.key),
+    });
+    hide();
+    message.success('删除成功，即将刷新');
+    return true;
+  } catch (error) {
+    hide();
+    message.error('删除失败，请重试');
+    return false;
+  }
+};
+
+const fieldLabels = {
+  app: '所属应用', //
+  version: '影响版本', //
+  owner: '当前指派', //
+  approver: '审批人',
+  dateRange: '截止日期', //
+  title: '任务标题', //
+  name2: '任务名',
+  detail: '任务详情', //
+  owner2: '抄送给', //
+  approver2: '责任人',
+  dateRange2: '生效日期',
+  type2: '任务类型',
 };
 
 type AdvancedState = {
@@ -188,6 +179,14 @@ const Advanced: FC = () => {
   const [createModalVisible, handleModalVisible] = useState<boolean>(false);
   const [createModalVisible1, handleModalVisible1] = useState<boolean>(false);
   const [createModalVisible2, handleModalVisible2] = useState<boolean>(false);
+  const [createModalVisible3, handleModalVisible3] = useState<boolean>(false);
+  /** 分布更新窗口的弹窗 */
+
+  const [updateModalVisible, handleUpdateModalVisible] = useState<boolean>(false);
+  const [showDetail, setShowDetail] = useState<boolean>(false);
+  const actionRef = useRef<ActionType>();
+  const [currentRow, setCurrentRow] = useState<TableListItem>();
+  const [selectedRowsState, setSelectedRows] = useState<TableListItem[]>([]);
 
   const operationTabList = [
     {
@@ -201,6 +200,14 @@ const Advanced: FC = () => {
     {
       key: 'tab3',
       tab: '权限申请记录',
+    },
+    {
+      key: 'tab4',
+      tab: '测试任务列表',
+    },
+    {
+      key: 'tab5',
+      tab: '问题修复任务列表',
     },
   ];
 
@@ -361,6 +368,81 @@ const Advanced: FC = () => {
     },
   ];
 
+  const reportColumns = [
+    // {
+    //   title: '应用名称',
+    //   dataIndex: 'name',
+    //   key: 'name',
+    //   width: 100,
+    //   // render: (dom, entity) => {
+    //   //   return <Tag>{dom}</Tag>;
+    //   // },
+    // },
+    {
+      title: '应用版本号',
+      dataIndex: 'version',
+      width: 200,
+      render: (dom, entity) => {
+        return <Tag>{dom}</Tag>;
+      },
+    },
+    {
+      title: '检测方法',
+      dataIndex: 'method',
+      width: 200,
+      render: (dom, entity) => {
+        return <Tag>{dom}</Tag>;
+      },
+    },
+    {
+      title: '检测结果',
+      dataIndex: 'method',
+      width: 200,
+      render: (dom, entity) => {
+        return '';
+      },
+    }
+    // {
+    //   title: '页面',
+    //   dataIndex: 'page',
+    //   key: 'page',
+    //   // valueType: (item) => ({
+    //   //   type: 'image',
+    //   //   status: item.avatar,
+    //   // }),
+    //   width: 140,
+    // },
+    // {
+    //   title: '控件',
+    //   dataIndex: 'kongjian',
+    //   key: 'kongjian',
+    //   // render: (dom, entity) => {
+    //   //   return <Tag>{dom}</Tag>;
+    //   // },
+    // },
+  ];
+
+  const bugColumns = [
+    {
+      title: '页面',
+      dataIndex: 'page',
+      key: 'page',
+      // valueType: (item) => ({
+      //   type: 'image',
+      //   status: item.avatar,
+      // }),
+      width: 140,
+    },
+    {
+      title: '控件',
+      dataIndex: 'kongjian',
+      key: 'kongjian',
+      // render: (dom, entity) => {
+      //   return <Tag>{dom}</Tag>;
+      // },
+    },
+  ];
+
   const columns = [
     {
       title: '应用Logo',
@@ -385,9 +467,31 @@ const Advanced: FC = () => {
       // },
     },
     // {
-    //   title: '应用描述',
-    //   dataIndex: 'description',
-    //   key: 'description',
+    //   title: '应用版本号',
+    //   dataIndex: 'version',
+    //   key: 'version',
+    //   width: 100,
+    //   // render: (dom, entity) => {
+    //   //   return <Tag>{dom}</Tag>;
+    //   // },
+    // },
+    // {
+    //   title: '页面',
+    //   dataIndex: 'page',
+    //   key: 'page',
+    //   // valueType: (item) => ({
+    //   //   type: 'image',
+    //   //   status: item.avatar,
+    //   // }),
+    //   width: 140,
+    // },
+    // {
+    //   title: '控件',
+    //   dataIndex: 'kongjian',
+    //   key: 'kongjian',
+    //   // render: (dom, entity) => {
+    //   //   return <Tag>{dom}</Tag>;
+    //   // },
     // },
     {
       title: '申请权限',
@@ -431,6 +535,112 @@ const Advanced: FC = () => {
       title: '审批意见',
       dataIndex: 'res',
       key: 'res',
+    },
+  ];
+
+  const taskColumns: ProColumns<TableListItem>[] = [
+    {
+      title: 'Logo',
+      dataIndex: 'avatar',
+      search: false,
+      width: 80,
+      valueType: (item) => ({
+        type: 'image',
+        status: item.avatar,
+      }),
+      // render: (dom, entity) => {
+      //   return <Avatar src={dom}></Avatar>;
+      // },
+    },
+    {
+      title: '应用名称',
+      dataIndex: 'name',
+      render: (dom, entity) => {
+        return (
+          // <a
+          //   onClick={() => {
+          //     setCurrentRow(entity);
+          //     setShowDetail(true);
+          //   }}
+          // >
+          //   {dom}
+          // </a>
+          <span>{dom}</span>
+        );
+      },
+    },
+    {
+      title: '应用版本号',
+      dataIndex: 'version',
+      width: 200,
+      render: (dom, entity) => {
+        return <Tag>{dom}</Tag>;
+      },
+    },
+    {
+      title: '检测方法',
+      dataIndex: 'method',
+      width: 200,
+      render: (dom, entity) => {
+        return <Tag>{dom}</Tag>;
+      },
+    },
+    {
+      title: '状态',
+      dataIndex: 'status',
+      initialValue: 'all',
+      filters: true,
+      onFilter: true,
+      valueEnum: {
+        all: { text: '全部', status: 'Default' },
+        close: { text: '未开始', status: 'Default' },
+        running: { text: '检测中', status: 'Processing' },
+        online: { text: '已完成', status: 'Success' },
+        error: { text: '异常', status: 'Error' },
+      },
+    },
+    {
+      title: '进度',
+      key: 'progress',
+      dataIndex: 'progress',
+      search: false,
+      valueType: (item) => ({
+        type: 'progress',
+        strokeColor: item.status == 'close' ? '#d9d9d9' : '#1b91ff',
+        status:
+          item.status !== 'error' ? (item.status == 'online' ? 'success' : 'normal') : 'exception',
+      }),
+    },
+    {
+      title: '检测开始时间',
+      sorter: true,
+      dataIndex: 'createdAt',
+    },
+    {
+      title: '检测结果',
+      key: 'progress',
+      dataIndex: 'progress',
+      search: false,
+      render: (dom, entity) => {
+        return (
+          dom === 100 ?
+          <a
+            onClick={() => {
+              setCurrentRow(entity);
+              setShowDetail(true);
+            }}
+          >
+            检测报告
+          </a> :
+          <></>
+        );
+      },
+      // valueType: (item) => ({
+      //   type: 'progress',
+      //   strokeColor: item.status == 'close' ? '#d9d9d9' : '#1b91ff',
+      //   status:
+      //     item.status !== 'error' ? (item.status == 'online' ? 'success' : 'normal') : 'exception',
+      // }),
     },
   ];
 
@@ -510,12 +720,491 @@ const Advanced: FC = () => {
         ]}
       />
     ),
+    tab4: (
+      <div>
+        <ProTable<TableListItem, TableListPagination>
+          headerTitle="检测任务列表"
+          actionRef={actionRef}
+          rowKey="key"
+          // search={{
+          //   labelWidth: 120,
+          // }}
+          search={false}
+          toolBarRender={() => [
+            <Button
+              type="primary"
+              key="primary"
+              onClick={() => {
+                handleModalVisible(true);
+              }}
+            >
+              <PlusOutlined /> 新建检测任务
+            </Button>,
+          ]}
+          request={rule}
+          columns={taskColumns}
+          rowSelection={{
+            onChange: (_, selectedRows) => {
+              setSelectedRows(selectedRows);
+            },
+          }}
+        />
+        {selectedRowsState?.length > 0 && (
+          <FooterToolbar
+            extra={
+              <div>
+                已选择{' '}
+                <a
+                  style={{
+                    fontWeight: 600,
+                  }}
+                >
+                  {selectedRowsState.length}
+                </a>{' '}
+                项 &nbsp;&nbsp;
+                {/* <span>
+                  服务调用次数总计 {selectedRowsState.reduce((pre, item) => pre + item.callNo!, 0)} 万
+                </span> */}
+              </div>
+            }
+          >
+            <Button
+              onClick={async () => {
+                await handleRemove(selectedRowsState);
+                setSelectedRows([]);
+                actionRef.current?.reloadAndRest?.();
+              }}
+            >
+              批量删除
+            </Button>
+            {/* <Button type="primary">批量审批</Button> */}
+          </FooterToolbar>
+        )}
+        <ModalForm
+          title="新建检测任务"
+          width="400px"
+          visible={createModalVisible3}
+          onVisibleChange={handleModalVisible3}
+          onFinish={async (value) => {
+            const success = await handleAdd(value as TableListItem);
+            if (success) {
+              handleModalVisible(false);
+              if (actionRef.current) {
+                actionRef.current.reload();
+              }
+            }
+          }}
+        >
+        {/* <ProFormText
+          label="APP应用名称"
+          rules={[
+            {
+              required: true,
+              message: 'APP应用名称为必填项',
+            },
+          ]}
+          width="md"
+          name="name"
+        /> */}
+        <ProFormSelect
+          showSearch={true}
+          options={[
+            {
+              value: 'alipay',
+              label: '支付宝',
+            },
+            {
+              value: 'baidu',
+              label: '百度',
+            },
+            {
+              value: 'wangyiyun',
+              label: '网易云',
+            },
+            {
+              value: 'tx',
+              label: '腾讯新闻',
+            },
+            {
+              value: 'meituan',
+              label: '美团',
+            },
+            {
+              value: 'xiecheng',
+              label: '携程',
+            },
+            {
+              value: 'yidong',
+              label: '中国移动',
+            },
+            {
+              value: 'chinaBank',
+              label: '中国银行',
+            },
+          ]}
+          rules={[
+            {
+              required: true,
+              message: 'APP应用名称为必填项',
+            },
+          ]}
+          width="sm"
+          name="name1"
+          label="APP应用名称"
+        />
+        <ProFormSelect
+          showSearch={true}
+          options={[
+            {
+              value: 'alipay',
+              label: '支付宝',
+            },
+            {
+              value: 'baidu',
+              label: '百度',
+            },
+            {
+              value: 'wangyiyun',
+              label: '网易云',
+            },
+            {
+              value: 'tx',
+              label: '腾讯新闻',
+            },
+            {
+              value: 'meituan',
+              label: '美团',
+            },
+            {
+              value: 'xiecheng',
+              label: '携程',
+            },
+            {
+              value: 'yidong',
+              label: '中国移动',
+            },
+            {
+              value: 'chinaBank',
+              label: '中国银行',
+            },
+          ]}
+          rules={[
+            {
+              required: true,
+              message: 'APP应用版本为必填项',
+            },
+          ]}
+          width="sm"
+          name="name2"
+          label="APP应用版本"
+        />
+        <ProFormSelect
+          showSearch={true}
+          options={[
+            {
+              value: 'alipay',
+              label: '支付宝',
+            },
+            {
+              value: 'baidu',
+              label: '百度',
+            },
+            {
+              value: 'wangyiyun',
+              label: '网易云',
+            },
+            {
+              value: 'tx',
+              label: '腾讯新闻',
+            },
+            {
+              value: 'meituan',
+              label: '美团',
+            },
+            {
+              value: 'xiecheng',
+              label: '携程',
+            },
+            {
+              value: 'yidong',
+              label: '中国移动',
+            },
+            {
+              value: 'chinaBank',
+              label: '中国银行',
+            },
+          ]}
+          rules={[
+            {
+              required: true,
+              message: 'APP应用测试方法为必填项',
+            },
+          ]}
+          width="sm"
+          name="name3"
+          label="APP应用测试方法"
+        />
+        {/* <ProFormUploadButton
+          label="APP应用Logo"
+          name="upload"
+          action="upload.do"
+          rules={[
+            {
+              required: true,
+              message: 'APP应用Logo为必填项',
+            },
+          ]}
+        /> */}
+        {/* <ProFormTextArea
+          width="md"
+          name="desc"
+          label="APP应用描述"
+          rules={[
+            {
+              required: true,
+              message: 'APP应用描述为必填项',
+            },
+          ]}
+        /> */}
+      </ModalForm>
+      <UpdateForm
+        onSubmit={async (value) => {
+          const success = await handleUpdate(value, currentRow);
+
+          if (success) {
+            handleUpdateModalVisible(false);
+            setCurrentRow(undefined);
+
+            if (actionRef.current) {
+              actionRef.current.reload();
+            }
+          }
+        }}
+        onCancel={() => {
+          handleUpdateModalVisible(false);
+          setCurrentRow(undefined);
+        }}
+        updateModalVisible={updateModalVisible}
+        values={currentRow || {}}
+      />
+
+      <Drawer
+        width={600}
+        visible={showDetail}
+        onClose={() => {
+          setCurrentRow(undefined);
+          setShowDetail(false);
+        }}
+        closable={false}
+      >
+        {currentRow?.name && (
+          <>
+            <ProDescriptions<TableListItem>
+              column={2}
+              title={currentRow?.name}
+              request={async () => ({
+                data: currentRow || {},
+              })}
+              params={{
+                id: currentRow?.name,
+              }}
+              columns={reportColumns as ProDescriptionsItemProps<TableListItem>[]}
+            />
+            <ProTable<TableListItem>
+              pagination={false}
+              loading={loading}
+              dataSource={currentRow?.page}
+              columns={bugColumns}
+              search={false}
+              options={false}
+              toolBarRender={() => [
+                // <Button key="show">查看日志</Button>,
+                // <Button key="out">
+                //   导出数据
+                //   <DownOutlined />
+                // </Button>,
+                // <Button type="primary" key="primary">
+                //   <PlusOutlined />
+                //   添加测试方法
+                // </Button>,
+              ]}
+            />
+          </>
+        )}
+      </Drawer>
+    </div>
+    ),
+    tab5: (
+      <Card title="问题修复表单" className={styles.card} bordered={false}>
+        <Row gutter={16}>
+          <Col lg={6} md={12} sm={24}>
+            {/* <ProFormText
+              label={fieldLabels.app}
+              name="app"
+              rules={[{ required: true, message: '请输入所属应用' }]}
+              placeholder="请输入所属应用"
+            /> */}
+            <ProFormSelect
+              label={fieldLabels.app}
+              name="app"
+              rules={[{ required: true, message: '请选择所属应用' }]}
+              options={[
+                {
+                  label: '遍历测试应用',
+                  value: 'test',
+                },
+              ]}
+              placeholder="请选择所属应用"
+            />
+          </Col>
+          <Col xl={{ span: 6, offset: 2 }} lg={{ span: 8 }} md={{ span: 12 }} sm={24}>
+            {/* <ProFormText
+              label={fieldLabels.version}
+              name="version"
+              rules={[{ required: true, message: '请选择影响版本' }]}
+              fieldProps={{
+                style: { width: '100%' },
+                addonBefore: '影响版本',
+                addonAfter: '创建发布',
+              }}
+              placeholder="请选择影响版本"
+            /> */}
+            <ProFormSelect
+              label={fieldLabels.version}
+              name="version"
+              rules={[{ required: true, message: '请选择影响版本' }]}
+              options={[
+                {
+                  label: 'version 1.0.0',
+                  value: '1.0.0',
+                },
+              ]}
+              placeholder="请选择影响版本"
+            />
+          </Col>
+        </Row>
+        <Row gutter={16}>
+          <Col lg={6} md={12} sm={24}>
+            <ProFormSelect
+              label={fieldLabels.owner}
+              name="owner"
+              rules={[{ required: true, message: '请选择当前指派人' }]}
+              fieldProps={{
+                mode: 'multiple',
+              }}
+              options={[
+                {
+                  label: 'user01',
+                  value: 'user01',
+                },
+                {
+                  label: 'user02',
+                  value: 'user02',
+                },
+                {
+                  label: 'user03',
+                  value: 'user03',
+                },
+                {
+                  label: 'user04',
+                  value: 'user04',
+                },
+                {
+                  label: 'user05',
+                  value: 'user05',
+                },
+                {
+                  label: 'user06',
+                  value: 'user06',
+                },
+              ]}
+              placeholder="请选择当前指派人"
+            />
+          </Col>
+          <Col xl={{ span: 6, offset: 2 }} lg={{ span: 8 }} md={{ span: 12 }} sm={24}>
+            <ProFormSelect
+              label={fieldLabels.owner2}
+              name="owner2"
+              fieldProps={{
+                mode: 'multiple',
+              }}
+              rules={[{ required: true, message: '请选择当前抄送人' }]}
+              options={[
+                {
+                  label: 'user01',
+                  value: 'user01',
+                },
+                {
+                  label: 'user02',
+                  value: 'user02',
+                },
+                {
+                  label: 'user03',
+                  value: 'user03',
+                },
+                {
+                  label: 'user04',
+                  value: 'user04',
+                },
+                {
+                  label: 'user05',
+                  value: 'user05',
+                },
+                {
+                  label: 'user06',
+                  value: 'user06',
+                },
+              ]}
+              placeholder="请选择当前抄送人"
+            />
+          </Col>
+          <Col xl={{ span: 6, offset: 2 }} lg={{ span: 8 }} md={{ span: 12 }} sm={24}>
+            <ProFormDatePicker
+              label={fieldLabels.dateRange}
+              name="dateRange"
+              fieldProps={{
+                style: {
+                  width: '100%',
+                },
+              }}
+              rules={[{ required: true, message: '请选择截止日期' }]}
+            />
+          </Col>
+        </Row>
+        <Row gutter={16}>
+          <Col lg={22} md={12} sm={24}>
+            <ProFormText
+              label={fieldLabels.title}
+              name="title"
+              rules={[{ required: true, message: '请输入任务标题' }]}
+              placeholder="请输入任务标题"
+            />
+          </Col>
+        </Row>
+        <Row gutter={16}>
+          <Col lg={22} md={12} sm={24}>
+            {/* <ProFormTextArea
+              label={fieldLabels.detail}
+              name="detail"
+              rules={[{ required: true, message: '请输入任务详情' }]}
+              placeholder="请输入任务详情"
+            /> */}
+            <ProForm.Item
+              name="content"
+              label="任务详情"
+              rules={[{ required: true, message: '请输入详情' }]}
+            >
+              <BraftEditor value={null} />
+            </ProForm.Item>
+          </Col>
+        </Row>
+      </Card>
+    ),
   };
   const onTabChange = (tabActiveKey: string) => {
     seTabStatus({ ...tabStatus, tabActiveKey });
   };
   const onOperationTabChange = (key: string) => {
-    console.log(tabStatus, key);
     seTabStatus({ ...tabStatus, operationKey: key });
   };
 
@@ -549,77 +1238,6 @@ const Advanced: FC = () => {
     >
       <div className={styles.main}>
         <GridContent>
-          {/* <Card title="流程进度" style={{ marginBottom: 24 }}>
-            <RouteContext.Consumer>
-              {({ isMobile }) => (
-                <Steps
-                  direction={isMobile ? 'vertical' : 'horizontal'}
-                  progressDot={customDot}
-                  current={1}
-                >
-                  <Step title="创建项目" description={desc1} />
-                  <Step title="部门初审" description={desc2} />
-                  <Step title="财务复核" />
-                  <Step title="完成" />
-                </Steps>
-              )}
-            </RouteContext.Consumer>
-          </Card> */}
-          {/* <Card title="用户信息" style={{ marginBottom: 24 }} bordered={false}>
-            <Descriptions style={{ marginBottom: 24 }}>
-              <Descriptions.Item label="用户姓名">付小小</Descriptions.Item>
-              <Descriptions.Item label="会员卡号">32943898021309809423</Descriptions.Item>
-              <Descriptions.Item label="身份证">3321944288191034921</Descriptions.Item>
-              <Descriptions.Item label="联系方式">18112345678</Descriptions.Item>
-              <Descriptions.Item label="联系地址">
-                曲丽丽 18100000000 浙江省杭州市西湖区黄姑山路工专路交叉路口
-              </Descriptions.Item>
-            </Descriptions>
-            <Descriptions style={{ marginBottom: 24 }} title="信息组">
-              <Descriptions.Item label="某某数据">725</Descriptions.Item>
-              <Descriptions.Item label="该数据更新时间">2017-08-08</Descriptions.Item>
-              <Descriptions.Item
-                label={
-                  <span>
-                    某某数据
-                    <Tooltip title="数据说明">
-                      <InfoCircleOutlined style={{ color: 'rgba(0, 0, 0, 0.43)', marginLeft: 4 }} />
-                    </Tooltip>
-                  </span>
-                }
-              >
-                725
-              </Descriptions.Item>
-              <Descriptions.Item label="该数据更新时间">2017-08-08</Descriptions.Item>
-            </Descriptions>
-            <h4 style={{ marginBottom: 16 }}>信息组</h4>
-            <Card type="inner" title="多层级信息组">
-              <Descriptions style={{ marginBottom: 16 }} title="组名称">
-                <Descriptions.Item label="负责人">林东东</Descriptions.Item>
-                <Descriptions.Item label="角色码">1234567</Descriptions.Item>
-                <Descriptions.Item label="所属部门">XX公司 - YY部</Descriptions.Item>
-                <Descriptions.Item label="过期时间">2017-08-08</Descriptions.Item>
-                <Descriptions.Item label="描述">
-                  这段描述很长很长很长很长很长很长很长很长很长很长很长很长很长很长...
-                </Descriptions.Item>
-              </Descriptions>
-              <Divider style={{ margin: '16px 0' }} />
-              <Descriptions style={{ marginBottom: 16 }} title="组名称" column={1}>
-                <Descriptions.Item label="学名">
-                  Citrullus lanatus (Thunb.) Matsum. et
-                  Nakai一年生蔓生藤本；茎、枝粗壮，具明显的棱。卷须较粗..
-                </Descriptions.Item>
-              </Descriptions>
-              <Divider style={{ margin: '16px 0' }} />
-              <Descriptions title="组名称">
-                <Descriptions.Item label="负责人">付小小</Descriptions.Item>
-                <Descriptions.Item label="角色码">1234568</Descriptions.Item>
-              </Descriptions>
-            </Card>
-          </Card> */}
-          {/* <Card title="用户近半年来电记录" style={{ marginBottom: 24 }} bordered={false}>
-            <Empty />
-          </Card> */}
           <Card
             className={styles.tabsCard}
             bordered={false}

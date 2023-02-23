@@ -149,7 +149,7 @@ export default defineConfig({
     {
       path: '/task',
       icon: 'code',
-      name: 'task',
+      // name: 'task',
       routes: [
         {
           path: '/task',
