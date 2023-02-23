@@ -12,14 +12,14 @@ import { queryCurrent } from './service';
 import styles from './Center.less';
 
 const operationTabList = [
-  {
-    key: 'articles',
-    tab: (
-      <span>
-        文章 <span style={{ fontSize: 14 }}>(8)</span>
-      </span>
-    ),
-  },
+  // {
+  //   key: 'articles',
+  //   tab: (
+  //     <span>
+  //       文章 <span style={{ fontSize: 14 }}>(8)</span>
+  //     </span>
+  //   ),
+  // },
   {
     key: 'applications',
     tab: (
@@ -28,14 +28,14 @@ const operationTabList = [
       </span>
     ),
   },
-  {
-    key: 'projects',
-    tab: (
-      <span>
-        项目 <span style={{ fontSize: 14 }}>(8)</span>
-      </span>
-    ),
-  },
+  // {
+  //   key: 'projects',
+  //   tab: (
+  //     <span>
+  //       项目 <span style={{ fontSize: 14 }}>(8)</span>
+  //     </span>
+  //   ),
+  // },
 ];
 
 const TagList: React.FC<{ tags: CurrentUser['tags'] }> = ({ tags }) => {
@@ -168,11 +168,11 @@ const Center: React.FC<RouteChildrenProps> = () => {
                   <div className={styles.name}>{currentUser.name}</div>
                   <div>{currentUser?.signature}</div>
                 </div>
-                {renderUserInfo(currentUser)}
+                {/* {renderUserInfo(currentUser)} */}
                 <Divider dashed />
                 <TagList tags={currentUser.tags || []} />
-                <Divider style={{ marginTop: 16 }} dashed />
-                <div className={styles.team}>
+                {/* <Divider style={{ marginTop: 16 }} dashed /> */}
+                {/* <div className={styles.team}>
                   <div className={styles.teamTitle}>团队</div>
                   <Row gutter={36}>
                     {currentUser.notice &&
@@ -185,7 +185,7 @@ const Center: React.FC<RouteChildrenProps> = () => {
                         </Col>
                       ))}
                   </Row>
-                </div>
+                </div> */}
               </div>
             )}
           </Card>

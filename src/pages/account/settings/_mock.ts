@@ -19,37 +19,33 @@ function getCity(req: Request, res: Response) {
 function getCurrentUse(req: Request, res: Response) {
   return res.json({
     data: {
-      name: 'Serati Ma',
-      avatar: 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png',
+      name: 'user',
+      avatar: 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
       userid: '00000001',
-      email: 'antdesign@alipay.com',
-      signature: '海纳百川，有容乃大',
-      title: '交互专家',
-      group: '蚂蚁金服－某某某事业群－某某平台部－某某技术部－UED',
+      email: '1234565@qq.com',
+      signature: '好好学习，天天向上',
+      title: '管理员',
+      group: '研究生',
       tags: [
         {
           key: '0',
-          label: '很有想法的',
+          label: 'Android',
         },
         {
           key: '1',
-          label: '专注设计',
+          label: 'App 遍历',
         },
         {
           key: '2',
-          label: '辣~',
+          label: '虚拟机',
         },
         {
           key: '3',
-          label: '大长腿',
+          label: '软件测试',
         },
         {
           key: '4',
-          label: '川妹子',
-        },
-        {
-          key: '5',
-          label: '海纳百川',
+          label: 'Java',
         },
       ],
       notifyCount: 12,
@@ -57,11 +53,11 @@ function getCurrentUse(req: Request, res: Response) {
       country: 'China',
       geographic: {
         province: {
-          label: '浙江省',
+          label: 'xx省',
           key: '330000',
         },
         city: {
-          label: '杭州市',
+          label: 'xx市',
           key: '330100',
         },
       },

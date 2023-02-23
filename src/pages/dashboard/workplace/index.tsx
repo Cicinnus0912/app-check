@@ -121,7 +121,7 @@ const Workplace: FC = () => {
             name: '吴彦祖',
             userid: '00000001',
             email: 'antdesign@alipay.com',
-            signature: '海纳百川，有容乃大',
+            signature: '好好学习，天天向上',
             title: '交互专家',
             group: '蚂蚁金服－某某某事业群－某某平台部－某某技术部－UED',
           }}

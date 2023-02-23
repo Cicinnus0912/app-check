@@ -33,11 +33,11 @@ const Articles: React.FC = () => {
       renderItem={(item) => (
         <List.Item
           key={item.id}
-          actions={[
-            <IconText key="star" icon={<StarTwoTone />} text={item.star} />,
-            <IconText key="like" icon={<LikeOutlined />} text={item.like} />,
-            <IconText key="message" icon={<MessageFilled />} text={item.message} />,
-          ]}
+          // actions={[
+          //   <IconText key="star" icon={<StarTwoTone />} text={item.star} />,
+          //   <IconText key="like" icon={<LikeOutlined />} text={item.like} />,
+          //   <IconText key="message" icon={<MessageFilled />} text={item.message} />,
+          // ]}
         >
           <List.Item.Meta
             title={
@@ -47,9 +47,8 @@ const Articles: React.FC = () => {
             }
             description={
               <span>
-                <Tag>Ant Design</Tag>
-                <Tag>设计语言</Tag>
-                <Tag>蚂蚁金服</Tag>
+                <Tag>图片替代文本测试</Tag>
+                <Tag>应用崩溃测试</Tag>
               </span>
             }
           />
