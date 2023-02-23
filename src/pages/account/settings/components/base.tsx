@@ -84,6 +84,7 @@ const BaseView: React.FC = () => {
                 width="md"
                 name="email"
                 label="邮箱"
+                disabled={true}
                 rules={[
                   {
                     required: true,
@@ -113,7 +114,7 @@ const BaseView: React.FC = () => {
                 ]}
                 placeholder="个人简介"
               />
-              <ProFormSelect
+              {/* <ProFormSelect
                 width="sm"
                 name="country"
                 label="国家/地区"
@@ -215,7 +216,7 @@ const BaseView: React.FC = () => {
               >
                 <Input className={styles.area_code} />
                 <Input className={styles.phone_number} />
-              </ProFormFieldSet>
+              </ProFormFieldSet> */}
             </ProForm>
           </div>
           <div className={styles.right}>

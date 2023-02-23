@@ -23,7 +23,7 @@ const SecurityView: React.FC = () => {
     },
     {
       title: '密保手机',
-      description: `已绑定手机：138****8293`,
+      description: `已绑定手机：138****2111`,
       actions: [<a key="Modify">修改</a>],
     },
     {
@@ -33,14 +33,14 @@ const SecurityView: React.FC = () => {
     },
     {
       title: '备用邮箱',
-      description: `已绑定邮箱：ant***sign.com`,
+      description: `已绑定邮箱：241***444@qq.com`,
       actions: [<a key="Modify">修改</a>],
     },
-    {
-      title: 'MFA 设备',
-      description: '未绑定 MFA 设备，绑定后，可以进行二次确认',
-      actions: [<a key="bind">绑定</a>],
-    },
+    // {
+    //   title: 'MFA 设备',
+    //   description: '未绑定 MFA 设备，绑定后，可以进行二次确认',
+    //   actions: [<a key="bind">绑定</a>],
+    // },
   ];
 
   const data = getData();
