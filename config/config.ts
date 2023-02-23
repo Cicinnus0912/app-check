@@ -147,6 +147,35 @@ export default defineConfig({
       ],
     },
     {
+      path: '/task',
+      icon: 'code',
+      name: 'task',
+      routes: [
+        {
+          path: '/task',
+          redirect: '/task/table-list',
+        },
+        {
+          name: 'table-list',
+          icon: 'code',
+          path: '/task/table-list',
+          component: './task/table-list',
+        },
+        {
+          name: 'advanced',
+          icon: 'smile',
+          path: '/task/advanced',
+          component: './task/advanced',
+        },
+        {
+          name: 'advanced-form',
+          icon: 'smile',
+          path: '/task/advanced-form',
+          component: './task/advanced-form',
+        },
+      ],
+    },
+    {
       path: '/profile',
       name: 'profile',
       icon: 'profile',
