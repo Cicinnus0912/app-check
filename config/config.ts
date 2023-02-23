@@ -257,14 +257,14 @@ export default defineConfig({
       routes: [
         {
           path: '/account',
-          redirect: '/account/center',
+          redirect: '/account/settings',
         },
-        {
-          name: 'center',
-          icon: 'smile',
-          path: '/account/center',
-          component: './account/center',
-        },
+        // {
+        //   name: 'center',
+        //   icon: 'smile',
+        //   path: '/account/center',
+        //   component: './account/center',
+        // },
         {
           name: 'settings',
           icon: 'smile',
