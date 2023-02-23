@@ -14,7 +14,7 @@ const Settings: LayoutSettings & {
   headerHeight: 48,
   splitMenus: false,
   footerRender: false,
-  title: 'Android App Check',
+  title: 'Parallel App Check',
   logo: '/appcheck.svg',
 }
 
