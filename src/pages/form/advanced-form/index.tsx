@@ -277,7 +277,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
             </Col>
           </Row>
         </Card>
-        <Card title="任务管理" className={styles.card} bordered={false}>
+        <Card title="应用管理" className={styles.card} bordered={false}>
           <Row gutter={16}>
             <Col lg={6} md={12} sm={24}>
               <ProFormText

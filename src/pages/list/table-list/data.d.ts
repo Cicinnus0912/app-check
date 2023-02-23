@@ -1,3 +1,8 @@
+export type Authority = {
+  color: string;
+  text: string;
+};
+
 export type TableListItem = {
   key: number;
   disabled?: boolean;
@@ -7,7 +12,7 @@ export type TableListItem = {
   owner: string;
   desc: string;
   callNo: number;
-  status: string;
+  authority: string;
   updatedAt: Date;
   createdAt: Date;
   progress: number;
@@ -25,7 +30,7 @@ export type TableListData = {
 };
 
 export type TableListParams = {
-  status?: string;
+  authority?: string;
   name?: string;
   desc?: string;
   key?: number;

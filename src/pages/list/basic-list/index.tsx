@@ -46,10 +46,10 @@ const ListContent = ({
   data: BasicListItemDataType;
 }) => (
   <div className={styles.listContent}>
-    <div className={styles.listContentItem}>
+    {/* <div className={styles.listContentItem}>
       <span>Owner</span>
       <p>{owner}</p>
-    </div>
+    </div> */}
     <div className={styles.listContentItem}>
       <span>开始时间</span>
       <p>{moment(createdAt).format('YYYY-MM-DD HH:mm')}</p>
@@ -71,7 +71,7 @@ export const BasicList: FC = () => {
     mutate,
   } = useRequest(() => {
     return queryFakeList({
-      count: 50,
+      count: 10,
     });
   });
   const { run: postRun } = useRequest(
@@ -184,7 +184,7 @@ export const BasicList: FC = () => {
           <Card
             className={styles.listCard}
             bordered={false}
-            title="基本列表"
+            title="进度列表"
             style={{ marginTop: 24 }}
             bodyStyle={{ padding: '0 32px 40px 32px' }}
             extra={extraContent}

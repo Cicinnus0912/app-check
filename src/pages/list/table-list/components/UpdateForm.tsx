@@ -94,10 +94,16 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
         <ProFormSelect
           name="target"
           width="md"
-          label="监控对象"
+          label="应用名称"
           valueEnum={{
-            0: '表一',
-            1: '表二',
+            0: '支付宝',
+            1: '百度',
+            2: '网易云',
+            3: '腾讯新闻',
+            4: '美团',
+            5: '携程',
+            6: '中国移动',
+            7: '中国银行',
           }}
         />
         <ProFormSelect

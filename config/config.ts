@@ -129,35 +129,6 @@ export default defineConfig({
       name: 'list',
       routes: [
         {
-          path: '/list/search',
-          name: 'search-list',
-          component: './list/search',
-          routes: [
-            {
-              path: '/list/search',
-              redirect: '/list/search/articles',
-            },
-            {
-              name: 'articles',
-              icon: 'smile',
-              path: '/list/search/articles',
-              component: './list/search/articles',
-            },
-            {
-              name: 'projects',
-              icon: 'smile',
-              path: '/list/search/projects',
-              component: './list/search/projects',
-            },
-            {
-              name: 'applications',
-              icon: 'smile',
-              path: '/list/search/applications',
-              component: './list/search/applications',
-            },
-          ],
-        },
-        {
           path: '/list',
           redirect: '/list/table-list',
         },
@@ -168,16 +139,10 @@ export default defineConfig({
           component: './list/table-list',
         },
         {
-          name: 'basic-list',
+          name: 'advanced',
           icon: 'smile',
-          path: '/list/basic-list',
-          component: './list/basic-list',
-        },
-        {
-          name: 'card-list',
-          icon: 'smile',
-          path: '/list/card-list',
-          component: './list/card-list',
+          path: '/list/advanced',
+          component: './list/advanced',
         },
       ],
     },

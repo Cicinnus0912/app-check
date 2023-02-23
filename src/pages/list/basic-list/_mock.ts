@@ -3,24 +3,38 @@ import type { Request, Response } from 'express';
 import type { BasicListItemDataType } from './data.d';
 
 const titles = [
-  'Alipay',
-  'Angular',
-  'Ant Design',
-  'Ant Design Pro',
-  'Bootstrap',
-  'React',
-  'Vue',
-  'Webpack',
+  '支付宝',
+  '百度',
+  '网易云',
+  '腾讯新闻',
+  '美团',
+  '携程',
+  '中国移动',
+  '中国银行',
+  // 'Angular',
+  // 'Ant Design',
+  // 'Ant Design Pro',
+  // 'Bootstrap',
+  // 'React',
+  // 'Vue',
+  // 'Webpack',
 ];
 const avatars = [
-  'https://gw.alipayobjects.com/zos/rmsportal/WdGqmHpayyMjiEhcKoVE.png', // Alipay
-  'https://gw.alipayobjects.com/zos/rmsportal/zOsKZmFRdUtvpqCImOVY.png', // Angular
-  'https://gw.alipayobjects.com/zos/rmsportal/dURIMkkrRFpPgTuzkwnB.png', // Ant Design
-  'https://gw.alipayobjects.com/zos/rmsportal/sfjbOqnsXXJgNCjCzDBL.png', // Ant Design Pro
-  'https://gw.alipayobjects.com/zos/rmsportal/siCrBXXhmvTQGWPNLBow.png', // Bootstrap
-  'https://gw.alipayobjects.com/zos/rmsportal/kZzEzemZyKLKFsojXItE.png', // React
-  'https://gw.alipayobjects.com/zos/rmsportal/ComBAopevLwENQdKWiIn.png', // Vue
-  'https://gw.alipayobjects.com/zos/rmsportal/nxkuOJlFJuAUhzlMTCEe.png', // Webpack
+  'https://gw.alipayobjects.com/zos/rmsportal/WdGqmHpayyMjiEhcKoVE.png', // 支付宝
+  'https://www.baidu.com/favicon.ico', // 百度
+  'https://i.postimg.cc/fbg0Y9bJ/wangyiyun.png', // 网易云
+  'https://i.postimg.cc/wBk6D8TM/tengxun.png',
+  'https://i.postimg.cc/fbR4n4CG/meituan.png',
+  'https://i.postimg.cc/mZYGHSP6/xiecheng.png',
+  'https://i.postimg.cc/pdGRTQL1/yidong.png',
+  'https://i.postimg.cc/28hWZyvx/chinabank.png',
+  // 'https://gw.alipayobjects.com/zos/rmsportal/zOsKZmFRdUtvpqCImOVY.png', // Angular
+  // 'https://gw.alipayobjects.com/zos/rmsportal/dURIMkkrRFpPgTuzkwnB.png', // Ant Design
+  // 'https://gw.alipayobjects.com/zos/rmsportal/sfjbOqnsXXJgNCjCzDBL.png', // Ant Design Pro
+  // 'https://gw.alipayobjects.com/zos/rmsportal/siCrBXXhmvTQGWPNLBow.png', // Bootstrap
+  // 'https://gw.alipayobjects.com/zos/rmsportal/kZzEzemZyKLKFsojXItE.png', // React
+  // 'https://gw.alipayobjects.com/zos/rmsportal/ComBAopevLwENQdKWiIn.png', // Vue
+  // 'https://gw.alipayobjects.com/zos/rmsportal/nxkuOJlFJuAUhzlMTCEe.png', // Webpack
 ];
 
 const covers = [
@@ -28,6 +42,16 @@ const covers = [
   'https://gw.alipayobjects.com/zos/rmsportal/iZBVOIhGJiAnhplqjvZW.png',
   'https://gw.alipayobjects.com/zos/rmsportal/iXjVmWVHbCJAyqvDxdtx.png',
   'https://gw.alipayobjects.com/zos/rmsportal/gLaIAoVWTtLbBWZNYEMg.png',
+];
+const descriptions = [
+  '支付宝,全球领先的独立第三方支付平台,致力于为广大用户提供安全快速的电子支付/网上支付/安全支付/手机支付体验,及转账收款/水电煤缴费/信用卡还款/AA收款等生活服务应用。',
+  '全球领先的中文搜索引擎、致力于让网民更便捷地获取信息，找到所求。',
+  '网易云音乐是一款专注于发现与分享的音乐产品,依托专业音乐人、DJ、好友推荐及社交功能,为用户打造全新的音乐生活。',
+  '腾讯网从2003年创立至今,已经成为集新闻信息,区域垂直生活服务、社会化媒体资讯和产品为一体的互联网媒体平台。',
+  '美团网:美食攻略,外卖网上订餐,酒店预订,旅游团购,飞机票火车票,电影票,ktv团购吃喝玩乐全都有!',
+  '携程旅行网是中国领先的在线旅行服务公司,向超过9000万会员提供酒店预订、酒店点评服务。',
+  '中国移动通信集团公司，是中国规模最大的移动通信运营商，主要经营移动话音、数据、IP电话和多媒体业务',
+  '中国银行是中国国际化和多元化程度最高的银行,在中国内地及六十多个国家和地区为客户提供全面的金融服务。',
 ];
 const desc = [
   '那是一种内在的东西， 他们到达不了，也无法触及的',
@@ -69,7 +93,7 @@ function fakeList(count: number): BasicListItemDataType[] {
       href: 'https://ant.design',
       updatedAt: new Date(new Date().getTime() - 1000 * 60 * 60 * 2 * i).getTime(),
       createdAt: new Date(new Date().getTime() - 1000 * 60 * 60 * 2 * i).getTime(),
-      subDescription: desc[i % 5],
+      subDescription: descriptions[i % 8],
       description:
         '在中台产品的研发过程中，会出现不同的设计规范和实现方式，但其中往往存在很多类似的页面和组件，这些类似的组件会被抽离成一套标准规范。',
       activeUser: Math.ceil(Math.random() * 100000) + 100000,
