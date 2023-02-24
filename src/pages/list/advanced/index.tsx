@@ -180,6 +180,7 @@ const Advanced: FC = () => {
   const [createModalVisible1, handleModalVisible1] = useState<boolean>(false);
   const [createModalVisible2, handleModalVisible2] = useState<boolean>(false);
   const [createModalVisible3, handleModalVisible3] = useState<boolean>(false);
+  const [createModalVisible4, handleModalVisible4] = useState<boolean>(false);
   /** 分布更新窗口的弹窗 */
 
   const [updateModalVisible, handleUpdateModalVisible] = useState<boolean>(false);
@@ -286,28 +287,28 @@ const Advanced: FC = () => {
   ];
 
   const authorityList = [
-    {
-      title: '应用Logo',
-      dataIndex: 'avatar',
-      key: 'avatar',
-      // valueType: (item) => ({
-      //   type: 'image',
-      //   status: item.avatar,
-      // }),
-      render: (dom, entity) => {
-        return <Avatar src={dom}></Avatar>;
-      },
-      width: 100,
-    },
-    {
-      title: '应用名称',
-      dataIndex: 'name',
-      key: 'name',
-      width: 100,
-      // render: (dom, entity) => {
-      //   return <Tag>{dom}</Tag>;
-      // },
-    },
+    // {
+    //   title: '应用Logo',
+    //   dataIndex: 'avatar',
+    //   key: 'avatar',
+    //   // valueType: (item) => ({
+    //   //   type: 'image',
+    //   //   status: item.avatar,
+    //   // }),
+    //   render: (dom, entity) => {
+    //     return <Avatar src={dom}></Avatar>;
+    //   },
+    //   width: 100,
+    // },
+    // {
+    //   title: '应用名称',
+    //   dataIndex: 'name',
+    //   key: 'name',
+    //   width: 100,
+    //   // render: (dom, entity) => {
+    //   //   return <Tag>{dom}</Tag>;
+    //   // },
+    // },
     // {
     //   title: '应用描述',
     //   dataIndex: 'description',
@@ -431,7 +432,7 @@ const Advanced: FC = () => {
       //   type: 'image',
       //   status: item.avatar,
       // }),
-      width: 140,
+      width: 30,
     },
     {
       title: '控件',
@@ -441,31 +442,48 @@ const Advanced: FC = () => {
       //   return <Tag>{dom}</Tag>;
       // },
     },
+    {
+      title: '操作',
+      valueType: 'option',
+      width: 50,
+      render: (dom, entity) => {
+        return (
+          <a
+            key="editable"
+            onClick={() => {
+              handleModalVisible4(true);
+            }}
+          >
+            生成问题修复任务
+          </a>
+        );
+      },
+    }
   ];
 
   const columns = [
-    {
-      title: '应用Logo',
-      dataIndex: 'avatar',
-      key: 'avatar',
-      // valueType: (item) => ({
-      //   type: 'image',
-      //   status: item.avatar,
-      // }),
-      render: (dom, entity) => {
-        return <Avatar src={dom}></Avatar>;
-      },
-      width: 100,
-    },
-    {
-      title: '应用名称',
-      dataIndex: 'name',
-      key: 'name',
-      width: 100,
-      // render: (dom, entity) => {
-      //   return <Tag>{dom}</Tag>;
-      // },
-    },
+    // {
+    //   title: '应用Logo',
+    //   dataIndex: 'avatar',
+    //   key: 'avatar',
+    //   // valueType: (item) => ({
+    //   //   type: 'image',
+    //   //   status: item.avatar,
+    //   // }),
+    //   render: (dom, entity) => {
+    //     return <Avatar src={dom}></Avatar>;
+    //   },
+    //   width: 100,
+    // },
+    // {
+    //   title: '应用名称',
+    //   dataIndex: 'name',
+    //   key: 'name',
+    //   width: 100,
+    //   // render: (dom, entity) => {
+    //   //   return <Tag>{dom}</Tag>;
+    //   // },
+    // },
     // {
     //   title: '应用版本号',
     //   dataIndex: 'version',
@@ -539,36 +557,36 @@ const Advanced: FC = () => {
   ];
 
   const taskColumns: ProColumns<TableListItem>[] = [
-    {
-      title: 'Logo',
-      dataIndex: 'avatar',
-      search: false,
-      width: 80,
-      valueType: (item) => ({
-        type: 'image',
-        status: item.avatar,
-      }),
-      // render: (dom, entity) => {
-      //   return <Avatar src={dom}></Avatar>;
-      // },
-    },
-    {
-      title: '应用名称',
-      dataIndex: 'name',
-      render: (dom, entity) => {
-        return (
-          // <a
-          //   onClick={() => {
-          //     setCurrentRow(entity);
-          //     setShowDetail(true);
-          //   }}
-          // >
-          //   {dom}
-          // </a>
-          <span>{dom}</span>
-        );
-      },
-    },
+    // {
+    //   title: 'Logo',
+    //   dataIndex: 'avatar',
+    //   search: false,
+    //   width: 80,
+    //   valueType: (item) => ({
+    //     type: 'image',
+    //     status: item.avatar,
+    //   }),
+    //   // render: (dom, entity) => {
+    //   //   return <Avatar src={dom}></Avatar>;
+    //   // },
+    // },
+    // {
+    //   title: '应用名称',
+    //   dataIndex: 'name',
+    //   render: (dom, entity) => {
+    //     return (
+    //       // <a
+    //       //   onClick={() => {
+    //       //     setCurrentRow(entity);
+    //       //     setShowDetail(true);
+    //       //   }}
+    //       // >
+    //       //   {dom}
+    //       // </a>
+    //       <span>{dom}</span>
+    //     );
+    //   },
+    // },
     {
       title: '应用版本号',
       dataIndex: 'version',
@@ -641,6 +659,73 @@ const Advanced: FC = () => {
       //   status:
       //     item.status !== 'error' ? (item.status == 'online' ? 'success' : 'normal') : 'exception',
       // }),
+    },
+  ];
+
+  const problemColumns: ProColumns<TableListItem>[] = [
+    {
+      title: '应用版本号',
+      dataIndex: 'version',
+      width: 120,
+      render: (dom, entity) => {
+        return <Tag>{dom}</Tag>;
+      },
+    },
+    {
+      title: '检测方法',
+      dataIndex: 'method',
+      width: 120,
+      render: (dom, entity) => {
+        return <Tag>{dom}</Tag>;
+      },
+    },
+    {
+      title: '当前抄送',
+      dataIndex: 'user1',
+      width: 60,
+      render: (dom, entity) => {
+        return <Tag>{dom}</Tag>;
+      },
+    },
+    {
+      title: '抄送给',
+      dataIndex: 'user2',
+      width: 60,
+      render: (dom, entity) => {
+        return <Tag>{dom}</Tag>;
+      },
+    },
+    {
+      title: '截止日期',
+      sorter: true,
+      width: 150,
+      dataIndex: 'createdAt',
+    },
+    {
+      title: '状态',
+      dataIndex: 'status',
+      initialValue: 'all',
+      width: 80,
+      filters: true,
+      onFilter: true,
+      valueEnum: {
+        all: { text: '全部', status: 'Default' },
+        close: { text: '未开始', status: 'Default' },
+        running: { text: '修复中', status: 'Processing' },
+        online: { text: '已完成', status: 'Success' },
+        error: { text: '异常', status: 'Error' },
+      },
+    },
+    {
+      title: '任务标题',
+      dataIndex: 'title',
+      width: 200,
+      key: 'memo',
+    },
+    {
+      title: '任务详情',
+      dataIndex: 'detail',
+      key: 'memo',
     },
   ];
 
@@ -735,7 +820,7 @@ const Advanced: FC = () => {
               type="primary"
               key="primary"
               onClick={() => {
-                handleModalVisible(true);
+                handleModalVisible3(true);
               }}
             >
               <PlusOutlined /> 新建检测任务
@@ -788,7 +873,7 @@ const Advanced: FC = () => {
           onFinish={async (value) => {
             const success = await handleAdd(value as TableListItem);
             if (success) {
-              handleModalVisible(false);
+              handleModalVisible3(false);
               if (actionRef.current) {
                 actionRef.current.reload();
               }
@@ -806,7 +891,7 @@ const Advanced: FC = () => {
           width="md"
           name="name"
         /> */}
-        <ProFormSelect
+        {/* <ProFormSelect
           showSearch={true}
           options={[
             {
@@ -851,7 +936,7 @@ const Advanced: FC = () => {
           width="sm"
           name="name1"
           label="APP应用名称"
-        />
+        /> */}
         <ProFormSelect
           showSearch={true}
           options={[
@@ -1032,173 +1117,73 @@ const Advanced: FC = () => {
           </>
         )}
       </Drawer>
-    </div>
+      </div>
     ),
     tab5: (
-      <Card title="问题修复表单" className={styles.card} bordered={false}>
-        <Row gutter={16}>
-          <Col lg={6} md={12} sm={24}>
-            {/* <ProFormText
-              label={fieldLabels.app}
-              name="app"
-              rules={[{ required: true, message: '请输入所属应用' }]}
-              placeholder="请输入所属应用"
-            /> */}
-            <ProFormSelect
-              label={fieldLabels.app}
-              name="app"
-              rules={[{ required: true, message: '请选择所属应用' }]}
-              options={[
-                {
-                  label: '遍历测试应用',
-                  value: 'test',
-                },
-              ]}
-              placeholder="请选择所属应用"
-            />
-          </Col>
-          <Col xl={{ span: 6, offset: 2 }} lg={{ span: 8 }} md={{ span: 12 }} sm={24}>
-            {/* <ProFormText
-              label={fieldLabels.version}
-              name="version"
-              rules={[{ required: true, message: '请选择影响版本' }]}
-              fieldProps={{
-                style: { width: '100%' },
-                addonBefore: '影响版本',
-                addonAfter: '创建发布',
+      // <Card title="问题修复表单" className={styles.card} bordered={false}>
+      // </Card>
+      <div>
+        <ProTable<TableListItem, TableListPagination>
+          headerTitle="问题修复列表"
+          actionRef={actionRef}
+          rowKey="key"
+          // search={{
+          //   labelWidth: 120,
+          // }}
+          search={false}
+          // toolBarRender={() => [
+          //   <Button
+          //     type="primary"
+          //     key="primary"
+          //     onClick={() => {
+          //       handleModalVisible3
+                
+          //       (true);
+          //     }}
+          //   >
+          //     <PlusOutlined /> 新建检测任务
+          //   </Button>,
+          // ]}
+          request={rule}
+          columns={problemColumns}
+          rowSelection={{
+            onChange: (_, selectedRows) => {
+              setSelectedRows(selectedRows);
+            },
+          }}
+        />
+        {selectedRowsState?.length > 0 && (
+          <FooterToolbar
+            extra={
+              <div>
+                已选择{' '}
+                <a
+                  style={{
+                    fontWeight: 600,
+                  }}
+                >
+                  {selectedRowsState.length}
+                </a>{' '}
+                项 &nbsp;&nbsp;
+                {/* <span>
+                  服务调用次数总计 {selectedRowsState.reduce((pre, item) => pre + item.callNo!, 0)} 万
+                </span> */}
+              </div>
+            }
+          >
+            <Button
+              onClick={async () => {
+                await handleRemove(selectedRowsState);
+                setSelectedRows([]);
+                actionRef.current?.reloadAndRest?.();
               }}
-              placeholder="请选择影响版本"
-            /> */}
-            <ProFormSelect
-              label={fieldLabels.version}
-              name="version"
-              rules={[{ required: true, message: '请选择影响版本' }]}
-              options={[
-                {
-                  label: 'version 1.0.0',
-                  value: '1.0.0',
-                },
-              ]}
-              placeholder="请选择影响版本"
-            />
-          </Col>
-        </Row>
-        <Row gutter={16}>
-          <Col lg={6} md={12} sm={24}>
-            <ProFormSelect
-              label={fieldLabels.owner}
-              name="owner"
-              rules={[{ required: true, message: '请选择当前指派人' }]}
-              fieldProps={{
-                mode: 'multiple',
-              }}
-              options={[
-                {
-                  label: 'user01',
-                  value: 'user01',
-                },
-                {
-                  label: 'user02',
-                  value: 'user02',
-                },
-                {
-                  label: 'user03',
-                  value: 'user03',
-                },
-                {
-                  label: 'user04',
-                  value: 'user04',
-                },
-                {
-                  label: 'user05',
-                  value: 'user05',
-                },
-                {
-                  label: 'user06',
-                  value: 'user06',
-                },
-              ]}
-              placeholder="请选择当前指派人"
-            />
-          </Col>
-          <Col xl={{ span: 6, offset: 2 }} lg={{ span: 8 }} md={{ span: 12 }} sm={24}>
-            <ProFormSelect
-              label={fieldLabels.owner2}
-              name="owner2"
-              fieldProps={{
-                mode: 'multiple',
-              }}
-              rules={[{ required: true, message: '请选择当前抄送人' }]}
-              options={[
-                {
-                  label: 'user01',
-                  value: 'user01',
-                },
-                {
-                  label: 'user02',
-                  value: 'user02',
-                },
-                {
-                  label: 'user03',
-                  value: 'user03',
-                },
-                {
-                  label: 'user04',
-                  value: 'user04',
-                },
-                {
-                  label: 'user05',
-                  value: 'user05',
-                },
-                {
-                  label: 'user06',
-                  value: 'user06',
-                },
-              ]}
-              placeholder="请选择当前抄送人"
-            />
-          </Col>
-          <Col xl={{ span: 6, offset: 2 }} lg={{ span: 8 }} md={{ span: 12 }} sm={24}>
-            <ProFormDatePicker
-              label={fieldLabels.dateRange}
-              name="dateRange"
-              fieldProps={{
-                style: {
-                  width: '100%',
-                },
-              }}
-              rules={[{ required: true, message: '请选择截止日期' }]}
-            />
-          </Col>
-        </Row>
-        <Row gutter={16}>
-          <Col lg={22} md={12} sm={24}>
-            <ProFormText
-              label={fieldLabels.title}
-              name="title"
-              rules={[{ required: true, message: '请输入任务标题' }]}
-              placeholder="请输入任务标题"
-            />
-          </Col>
-        </Row>
-        <Row gutter={16}>
-          <Col lg={22} md={12} sm={24}>
-            {/* <ProFormTextArea
-              label={fieldLabels.detail}
-              name="detail"
-              rules={[{ required: true, message: '请输入任务详情' }]}
-              placeholder="请输入任务详情"
-            /> */}
-            <ProForm.Item
-              name="content"
-              label="任务详情"
-              rules={[{ required: true, message: '请输入详情' }]}
             >
-              <BraftEditor value={null} />
-            </ProForm.Item>
-          </Col>
-        </Row>
-      </Card>
+              批量删除
+            </Button>
+            {/* <Button type="primary">批量审批</Button> */}
+          </FooterToolbar>
+        )}
+      </div>
     ),
   };
   const onTabChange = (tabActiveKey: string) => {
@@ -1214,9 +1199,9 @@ const Advanced: FC = () => {
         <>
           <Avatar
             size="large"
-            src={'https://gw.alipayobjects.com/zos/rmsportal/WdGqmHpayyMjiEhcKoVE.png'}
+            src={'https://i.postimg.cc/RZbXszL5/test.png'}
           />
-          <span>支付宝</span>
+          <span>遍历测试应用</span>
         </>
       } // <Avatar size="small" src={item.avatar} />
       // extra={action}
@@ -1287,7 +1272,7 @@ const Advanced: FC = () => {
           // }
         }}
       >
-        <ProFormSelect
+        {/* <ProFormSelect
           showSearch={true}
           options={[
             {
@@ -1336,7 +1321,7 @@ const Advanced: FC = () => {
           width="sm"
           name="name"
           label="APP应用名称"
-        />
+        /> */}
         <ProFormText
           label="APP应用版本"
           rules={[
@@ -1392,7 +1377,7 @@ const Advanced: FC = () => {
           // }
         }}
       >
-        <ProFormSelect
+        {/* <ProFormSelect
           showSearch={true}
           options={[
             {
@@ -1437,7 +1422,7 @@ const Advanced: FC = () => {
           width="sm"
           name="name"
           label="APP应用名称"
-        />
+        /> */}
         <ProFormText
           label="APP应用测试方法名称"
           rules={[
@@ -1578,6 +1563,184 @@ const Advanced: FC = () => {
             },
           ]}
         />
+      </ModalForm>
+      <ModalForm
+        title="生成问题修复任务"
+        width="800px"
+        visible={createModalVisible4}
+        onVisibleChange={handleModalVisible4}
+        onFinish={async (value) => {
+          // const success = await handleAdd(value as TableListItem);
+          // if (success) {
+          //   handleModalVisible(false);
+          //   if (actionRef.current) {
+          //     actionRef.current.reload();
+          //   }
+          // }
+        }}
+      >
+        {/* <Row gutter={16}> */}
+          {/* <Col lg={6} md={12} sm={24}> */}
+            {/* <ProFormText
+              label={fieldLabels.app}
+              name="app"
+              rules={[{ required: true, message: '请输入所属应用' }]}
+              placeholder="请输入所属应用"
+            /> */}
+            {/* <ProFormSelect
+              label={fieldLabels.app}
+              name="app"
+              rules={[{ required: true, message: '请选择所属应用' }]}
+              options={[
+                {
+                  label: '遍历测试应用',
+                  value: 'test',
+                },
+              ]}
+              placeholder="请选择所属应用"
+            />
+          </Col> */}
+          {/* <Col xl={{ span: 6, offset: 2 }} lg={{ span: 8 }} md={{ span: 12 }} sm={24}> */}
+            {/* <ProFormText
+              label={fieldLabels.version}
+              name="version"
+              rules={[{ required: true, message: '请选择影响版本' }]}
+              fieldProps={{
+                style: { width: '100%' },
+                addonBefore: '影响版本',
+                addonAfter: '创建发布',
+              }}
+              placeholder="请选择影响版本"
+            /> */}
+            {/* <ProFormSelect
+              label={fieldLabels.version}
+              name="version"
+              rules={[{ required: true, message: '请选择影响版本' }]}
+              options={[
+                {
+                  label: 'version 1.0.0',
+                  value: '1.0.0',
+                },
+              ]}
+              placeholder="请选择影响版本"
+            />
+          </Col> */}
+        {/* </Row> */}
+        <Row gutter={16}>
+          <Col lg={6} md={12} sm={24}>
+            <ProFormSelect
+              label={fieldLabels.owner}
+              name="owner"
+              rules={[{ required: true, message: '请选择当前指派人' }]}
+              fieldProps={{
+                mode: 'multiple',
+              }}
+              options={[
+                {
+                  label: 'user01',
+                  value: 'user01',
+                },
+                {
+                  label: 'user02',
+                  value: 'user02',
+                },
+                {
+                  label: 'user03',
+                  value: 'user03',
+                },
+                {
+                  label: 'user04',
+                  value: 'user04',
+                },
+                {
+                  label: 'user05',
+                  value: 'user05',
+                },
+                {
+                  label: 'user06',
+                  value: 'user06',
+                },
+              ]}
+              placeholder="请选择当前指派人"
+            />
+          </Col>
+          <Col xl={{ span: 6, offset: 2 }} lg={{ span: 8 }} md={{ span: 12 }} sm={24}>
+            <ProFormSelect
+              label={fieldLabels.owner2}
+              name="owner2"
+              fieldProps={{
+                mode: 'multiple',
+              }}
+              rules={[{ required: true, message: '请选择当前抄送人' }]}
+              options={[
+                {
+                  label: 'user01',
+                  value: 'user01',
+                },
+                {
+                  label: 'user02',
+                  value: 'user02',
+                },
+                {
+                  label: 'user03',
+                  value: 'user03',
+                },
+                {
+                  label: 'user04',
+                  value: 'user04',
+                },
+                {
+                  label: 'user05',
+                  value: 'user05',
+                },
+                {
+                  label: 'user06',
+                  value: 'user06',
+                },
+              ]}
+              placeholder="请选择当前抄送人"
+            />
+          </Col>
+          <Col xl={{ span: 6, offset: 2 }} lg={{ span: 8 }} md={{ span: 12 }} sm={24}>
+            <ProFormDatePicker
+              label={fieldLabels.dateRange}
+              name="dateRange"
+              fieldProps={{
+                style: {
+                  width: '100%',
+                },
+              }}
+              rules={[{ required: true, message: '请选择截止日期' }]}
+            />
+          </Col>
+        </Row>
+        <Row gutter={16}>
+          <Col lg={22} md={12} sm={24}>
+            <ProFormText
+              label={fieldLabels.title}
+              name="title"
+              rules={[{ required: true, message: '请输入任务标题' }]}
+              placeholder="请输入任务标题"
+            />
+          </Col>
+        </Row>
+        <Row gutter={16}>
+          <Col lg={22} md={12} sm={24}>
+            {/* <ProFormTextArea
+              label={fieldLabels.detail}
+              name="detail"
+              rules={[{ required: true, message: '请输入任务详情' }]}
+              placeholder="请输入任务详情"
+            /> */}
+            <ProForm.Item
+              name="content"
+              label="任务详情"
+              rules={[{ required: true, message: '请输入详情' }]}
+            >
+              <BraftEditor value={null} style={{ height: "300px" }}/>
+            </ProForm.Item>
+          </Col>
+        </Row>
       </ModalForm>
     </PageContainer>
   );
