@@ -196,7 +196,7 @@ const TableList: React.FC = () => {
     //   },
     // },
     // {
-    //   title: '检测开始时间',
+    //   title: '测试开始时间',
     //   sorter: true,
     //   dataIndex: 'updatedAt',
     //   valueType: 'dateTime',
@@ -316,7 +316,7 @@ const TableList: React.FC = () => {
         }}
       />
       {/* <ProTable<TableListItem, TableListPagination>
-        headerTitle="检测表格"
+        headerTitle="测试表格"
         actionRef={actionRef}
         rowKey="key"
         search={{

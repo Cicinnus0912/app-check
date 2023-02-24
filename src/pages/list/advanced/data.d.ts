@@ -76,6 +76,7 @@ export interface AdvancedProfileData {
   advancedOperation2?: AdvancedOperation2[];
   advancedOperation3?: AdvancedOperation3[];
   advancedOperation4?: AdvancedOperation4[];
+  advancedOperation5?: AdvancedOperation4[];
 }
 
 export type TableListItem = {

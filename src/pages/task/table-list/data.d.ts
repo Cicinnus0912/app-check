@@ -19,7 +19,6 @@ export type TableListItem = {
   user2: string;
   title: string;
   detail: string;
-
 };
 
 export type TableListPagination = {

@@ -1,3 +1,4 @@
+import { AdvancedOperation } from './data.d';
 import type { Request, Response } from 'express';
 
 const generateRdStr = function () {
@@ -207,11 +208,137 @@ const advancedOperation3 = [
   // },
 ];
 
+const tmp = [
+  {
+    page: 'com.example.testapp.MainActivity',
+    kongjian: '<node index="1" text="" resource-id="" class="android.widget.ImageView" package="com.example.testapp" content-desc="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" long-clickable="false" password="false" selected="false" visible-to-user="true" bounds="[413,250][826,663]" />',
+  },
+  {
+    pages: 'com.example.testapp.Activity2_1',
+    kongjian: '<node index="1" text="" resource-id="" class="android.widget.ImageView" package="com.example.testapp" content-desc="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" long-clickable="false" password="false" selected="false" visible-to-user="true" bounds="[413,250][826,663]" />',
+  },
+  {
+    page: 'com.example.testapp.Activity2_2',
+    kongjian: '<node index="1" text="" resource-id="" class="android.widget.ImageView" package="com.example.testapp" content-desc="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" long-clickable="false" password="false" selected="false" visible-to-user="true" bounds="[413,250][826,663]" />',
+  },
+  {
+    page: 'com.example.testapp.Activity3_1',
+    kongjian: '<node index="1" text="" resource-id="" class="android.widget.ImageView" package="com.example.testapp" content-desc="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" long-clickable="false" password="false" selected="false" visible-to-user="true" bounds="[413,250][826,663]" />',
+  },
+  {
+    page: 'com.example.testapp.Activity3_2',
+    kongjian: '<node index="1" text="" resource-id="" class="android.widget.ImageView" package="com.example.testapp" content-desc="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" long-clickable="false" password="false" selected="false" visible-to-user="true" bounds="[413,250][826,663]" />',
+  },
+  {
+    page: 'com.example.testapp.Activity4_1',
+    kongjian: '<node index="1" text="" resource-id="" class="android.widget.ImageView" package="com.example.testapp" content-desc="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" long-clickable="false" password="false" selected="false" visible-to-user="true" bounds="[413,250][826,663]" />',
+  },
+  {
+    page: 'com.example.testapp.Activity4_2',
+    kongjian: '<node index="1" text="" resource-id="" class="android.widget.ImageView" package="com.example.testapp" content-desc="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" long-clickable="false" password="false" selected="false" visible-to-user="true" bounds="[413,250][826,663]" />',
+  },
+  {
+    page: 'com.example.testapp.Activity5_1',
+    kongjian: '<node index="1" text="" resource-id="" class="android.widget.ImageView" package="com.example.testapp" content-desc="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" long-clickable="false" password="false" selected="false" visible-to-user="true" bounds="[413,250][826,663]" />',
+  },
+  {
+    page: 'com.example.testapp.Activity5_2',
+    kongjian: '<node index="1" text="" resource-id="" class="android.widget.ImageView" package="com.example.testapp" content-desc="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" long-clickable="false" password="false" selected="false" visible-to-user="true" bounds="[413,250][826,663]" />',
+  }
+];
+
 const advancedOperation4 = [
+    {
+      version: 'version 1.0.0',
+      name: '遍历测试应用',
+      avatar: 'https://i.postimg.cc/RZbXszL5/test.png', // 支付宝
+      status: 'running',
+      method: '图片替代文本测试',
+      progress: 87,
+      createdAt: '2022-11-15 08:38:42',
+      page: tmp,
+      user1: 'user04',
+      user2: 'user01',
+      title: 'MainActivity替代文本缺失，组件为Button',
+      detail: 'com.example.testapp.MainActivity页面存在图片替代文本缺失，控件为<node index="1" text="" resource-id="" class="android.widget.ImageView" package="com.example.testapp" content-desc="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" long-clickable="false" password="false" selected="false" visible-to-user="true" bounds="[413,250][826,663]" />',
+    },
+    {
+      version: 'version 1.0.0',
+      name: '遍历测试应用',
+      avatar: 'https://i.postimg.cc/RZbXszL5/test.png', // 支付宝
+      status: 'online',
+      method: '应用崩溃测试',
+      createdAt: '2022-11-15 10:28:35',
+      progress: 100,
+      page: tmp,
+      user1: 'user04',
+      user2: 'user01',
+      title: 'MainActivity替代文本缺失，组件为Button',
+      detail: 'com.example.testapp.Activity2_2页面存在图片替代文本缺失，请及时修复，控件为<node index="1" text="" resource-id="" class="android.widget.ImageView" package="com.example.testapp" content-desc="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" long-clickable="false" password="false" selected="false" visible-to-user="true" bounds="[413,250][826,663]" />',
+    },
+    {
+      version: 'version 1.0.0',
+      name: '遍历测试应用',
+      avatar: 'https://i.postimg.cc/RZbXszL5/test.png', // 支付宝
+      status: 'online',
+      progress: 100,
+      createdAt: '2022-11-13 14:38:42',
+      method: '图片替代文本测试',
+      page: tmp,
+      user1: 'user04',
+      user2: 'user01',
+      title: 'MainActivity替代文本缺失，组件为Button',
+      detail: 'xxx',
+    },
+    {
+      version: 'version 1.0.0',
+      name: '遍历测试应用',
+      avatar: 'https://i.postimg.cc/RZbXszL5/test.png', // 支付宝
+      status: 'online',
+      createdAt: '2022-11-13 14:35:02',
+      progress: 100,
+      method: '应用崩溃测试',
+      page: tmp,
+      user1: 'user04',
+      user2: 'user01',
+      title: 'MainActivity替代文本缺失，组件为Button',
+      detail: 'xxx',
+    },
+    {
+      version: 'version 1.0.0',
+      name: '遍历测试应用',
+      avatar: 'https://i.postimg.cc/RZbXszL5/test.png', // 支付宝
+      status: 'error',
+      createdAt: '2022-11-08 20:14:32',
+      progress: 10,
+      method: '图片替代文本测试',
+      page: tmp,
+      user1: 'user04',
+      user2: 'user01',
+      title: 'MainActivity替代文本缺失，组件为Button',
+      detail: 'xxx',
+    },
+    {
+      version: 'version 1.0.0',
+      name: '遍历测试应用',
+      avatar: 'https://i.postimg.cc/RZbXszL5/test.png', // 支付宝
+      status: 'online',
+      createdAt: '2022-11-06 11:24:52',
+      progress: 100,
+      method: '图片替代文本测试',
+      page: tmp,
+      user1: 'user04',
+      user2: 'user01',
+      title: 'MainActivity替代文本缺失，组件为Button',
+      detail: 'xxx',
+    },
+  ];
+
+const advancedOperation5 = [
   {
     version: 'version 1.0.0',
     status: 'running',
-    method: '图片替代文本检测',
+    method: '图片替代文本测试',
     createdAt: '2022-11-15 08:38:42',
     user1: 'user04',
     user2: 'user01',
@@ -221,7 +348,7 @@ const advancedOperation4 = [
   {
     version: 'version 1.0.0',
     status: 'online',
-    method: '应用崩溃检测',
+    method: '应用崩溃测试',
     createdAt: '2022-11-15 10:28:35',
     user1: 'user04',
     user2: 'user01',
@@ -238,6 +365,7 @@ function getProfileAppData(req: Request, res: Response) {
       advancedOperation2,
       advancedOperation3,
       advancedOperation4,
+      advancedOperation5
     },
   };
   console.log('data', result);

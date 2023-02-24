@@ -176,7 +176,7 @@ const Advanced: FC = () => {
     tabActiveKey: 'detail',
   });
   const { data = {}, loading } = useRequest<{ data: AdvancedProfileData }>(queryAppProfile);
-  const { advancedOperation, advancedOperation1, advancedOperation2, advancedOperation3, advancedOperation4 } = data;
+  const { advancedOperation, advancedOperation1, advancedOperation2, advancedOperation3, advancedOperation4, advancedOperation5 } = data;
   const [createModalVisible, handleModalVisible] = useState<boolean>(false);
   const [createModalVisible1, handleModalVisible1] = useState<boolean>(false);
   const [createModalVisible2, handleModalVisible2] = useState<boolean>(false);
@@ -389,7 +389,7 @@ const Advanced: FC = () => {
       },
     },
     {
-      title: '检测方法',
+      title: '测试方法',
       dataIndex: 'method',
       width: 200,
       render: (dom, entity) => {
@@ -397,7 +397,7 @@ const Advanced: FC = () => {
       },
     },
     {
-      title: '检测结果',
+      title: '测试结果',
       dataIndex: 'method',
       width: 200,
       render: (dom, entity) => {
@@ -597,7 +597,7 @@ const Advanced: FC = () => {
       },
     },
     {
-      title: '检测方法',
+      title: '测试方法',
       dataIndex: 'method',
       width: 200,
       render: (dom, entity) => {
@@ -613,7 +613,7 @@ const Advanced: FC = () => {
       valueEnum: {
         all: { text: '全部', status: 'Default' },
         close: { text: '未开始', status: 'Default' },
-        running: { text: '检测中', status: 'Processing' },
+        running: { text: '测试中', status: 'Processing' },
         online: { text: '已完成', status: 'Success' },
         error: { text: '异常', status: 'Error' },
       },
@@ -631,12 +631,12 @@ const Advanced: FC = () => {
       }),
     },
     {
-      title: '检测开始时间',
+      title: '测试开始时间',
       sorter: true,
       dataIndex: 'createdAt',
     },
     {
-      title: '检测结果',
+      title: '测试结果',
       key: 'progress',
       dataIndex: 'progress',
       search: false,
@@ -649,7 +649,7 @@ const Advanced: FC = () => {
               setShowDetail(true);
             }}
           >
-            检测报告
+            测试报告
           </a> :
           <></>
         );
@@ -673,7 +673,7 @@ const Advanced: FC = () => {
       },
     },
     {
-      title: '检测方法',
+      title: '测试方法',
       dataIndex: 'method',
       width: 120,
       render: (dom, entity) => {
@@ -681,7 +681,7 @@ const Advanced: FC = () => {
       },
     },
     {
-      title: '当前抄送',
+      title: '当前指派',
       dataIndex: 'user1',
       width: 60,
       render: (dom, entity) => {
@@ -763,7 +763,7 @@ const Advanced: FC = () => {
   const contentList = {
     tab1: (
       <ProTable
-        pagination={false}
+        // pagination={false}
         loading={loading}
         dataSource={advancedOperation1}
         columns={versionList}
@@ -790,7 +790,7 @@ const Advanced: FC = () => {
     ),
     tab2: (
       <ProTable
-        pagination={false}
+        // pagination={false}
         loading={loading}
         dataSource={advancedOperation2}
         columns={methodList}
@@ -817,7 +817,7 @@ const Advanced: FC = () => {
     ),
     tab3: (
       <ProTable
-        pagination={false}
+        // pagination={false}
         loading={loading}
         dataSource={advancedOperation3}
         columns={authorityList}
@@ -839,7 +839,7 @@ const Advanced: FC = () => {
     tab4: (
       <div>
         <ProTable<TableListItem, TableListPagination>
-          headerTitle="检测任务列表"
+          headerTitle="测试任务列表"
           actionRef={actionRef}
           rowKey="key"
           // search={{
@@ -854,10 +854,11 @@ const Advanced: FC = () => {
                 handleModalVisible3(true);
               }}
             >
-              <PlusOutlined /> 新建检测任务
+              <PlusOutlined /> 新建测试任务
             </Button>,
           ]}
-          request={rule}
+          // request={rule}
+          dataSource={advancedOperation4}
           columns={taskColumns}
           // rowSelection={{
           //   onChange: (_, selectedRows) => {
@@ -897,7 +898,7 @@ const Advanced: FC = () => {
           </FooterToolbar>
         )} */}
         <ModalForm
-          title="新建检测任务"
+          title="新建测试任务"
           width="400px"
           visible={createModalVisible3}
           onVisibleChange={handleModalVisible3}
@@ -1014,8 +1015,6 @@ const Advanced: FC = () => {
           name="name2"
           label="APP应用版本"
         />
-        <ProFormDigit label="预期遍历页数" name="pageNum" width="sm" min={1} max={10}/>
-        <ProFormDigit label="最大深度" name="maxDepth" width="sm" min={1} max={10}/>
         <ProFormSelect
           showSearch={true}
           options={[
@@ -1062,6 +1061,8 @@ const Advanced: FC = () => {
           name="name3"
           label="APP应用测试方法"
         />
+        <ProFormDigit label="预期遍历页数" name="pageNum" width="sm" min={1} max={1000} required/>
+        <ProFormDigit label="最大深度" name="maxDepth" width="sm" min={1} max={1000} required/>
         {/* <ProFormUploadButton
           label="APP应用Logo"
           name="upload"
@@ -1156,7 +1157,7 @@ const Advanced: FC = () => {
       // <Card title="问题修复表单" className={styles.card} bordered={false}>
       // </Card>
       <div>
-        <ProTable<TableListItem, TableListPagination>
+        <ProTable<TableListItem>
           headerTitle="问题修复列表"
           actionRef={actionRef}
           rowKey="key"
@@ -1174,10 +1175,10 @@ const Advanced: FC = () => {
           //       (true);
           //     }}
           //   >
-          //     <PlusOutlined /> 新建检测任务
+          //     <PlusOutlined /> 新建测试任务
           //   </Button>,
           // ]}
-          dataSource={advancedOperation4}
+          dataSource={advancedOperation5}
           columns={problemColumns}
           // rowSelection={{
           //   onChange: (_, selectedRows) => {
@@ -1268,7 +1269,7 @@ const Advanced: FC = () => {
             <>
               <Card className={styles.tabsCard} bordered={false}>
                 <ProTable
-                  pagination={false}
+                  // pagination={false}
                   loading={loading}
                   dataSource={advancedOperation}
                   columns={columns}

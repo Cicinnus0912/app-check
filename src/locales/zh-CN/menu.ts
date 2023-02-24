@@ -34,7 +34,7 @@ export default {
   'menu.task.table-list': '任务列表',
   'menu.task.advanced': '报告列表',
   'menu.task.advanced-form': '问题修复表单',
-  'menu.profile': '检测详情',
+  'menu.profile': '测试详情',
   'menu.profile.basic': '基础详情页',
   'menu.profile.advanced': '高级详情页',
   'menu.result': '结果页',

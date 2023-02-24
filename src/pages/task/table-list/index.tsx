@@ -135,7 +135,7 @@ const TableList: React.FC = () => {
       },
     },
     {
-      title: '检测方法',
+      title: '测试方法',
       dataIndex: 'method',
       width: 200,
       render: (dom, entity) => {
@@ -151,7 +151,7 @@ const TableList: React.FC = () => {
       valueEnum: {
         all: { text: '全部', status: 'Default' },
         close: { text: '未开始', status: 'Default' },
-        running: { text: '检测中', status: 'Processing' },
+        running: { text: '测试中', status: 'Processing' },
         online: { text: '已完成', status: 'Success' },
         error: { text: '异常', status: 'Error' },
       },
@@ -169,7 +169,7 @@ const TableList: React.FC = () => {
       }),
     },
     {
-      title: '检测开始时间',
+      title: '测试开始时间',
       sorter: true,
       dataIndex: 'createdAt',
       // valueType: 'dateTime',
@@ -223,7 +223,7 @@ const TableList: React.FC = () => {
   return (
     <PageContainer>
       <ProTable<TableListItem, TableListPagination>
-        headerTitle="检测任务列表"
+        headerTitle="测试任务列表"
         actionRef={actionRef}
         rowKey="key"
         // search={{
@@ -238,7 +238,7 @@ const TableList: React.FC = () => {
               handleModalVisible(true);
             }}
           >
-            <PlusOutlined /> 新建检测任务
+            <PlusOutlined /> 新建测试任务
           </Button>,
         ]}
         request={rule}
@@ -281,7 +281,7 @@ const TableList: React.FC = () => {
         </FooterToolbar>
       )}
       <ModalForm
-        title="新建检测任务"
+        title="新建测试任务"
         width="400px"
         visible={createModalVisible}
         onVisibleChange={handleModalVisible}

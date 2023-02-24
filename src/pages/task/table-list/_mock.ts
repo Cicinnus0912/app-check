@@ -92,7 +92,7 @@ const genList = (current: number, pageSize: number) => {
       name: '遍历测试应用',
       avatar: 'https://i.postimg.cc/RZbXszL5/test.png', // 支付宝
       status: 'running',
-      method: '图片替代文本检测',
+      method: '图片替代文本测试',
       progress: 87,
       createdAt: '2022-11-15 08:38:42',
       page: tmp,
@@ -106,7 +106,7 @@ const genList = (current: number, pageSize: number) => {
       name: '遍历测试应用',
       avatar: 'https://i.postimg.cc/RZbXszL5/test.png', // 支付宝
       status: 'online',
-      method: '应用崩溃检测',
+      method: '应用崩溃测试',
       createdAt: '2022-11-15 10:28:35',
       progress: 100,
       page: tmp,
@@ -122,7 +122,7 @@ const genList = (current: number, pageSize: number) => {
       status: 'online',
       progress: 100,
       createdAt: '2022-11-13 14:38:42',
-      method: '图片替代文本检测',
+      method: '图片替代文本测试',
       page: tmp,
       user1: 'user04',
       user2: 'user01',
@@ -136,7 +136,7 @@ const genList = (current: number, pageSize: number) => {
       status: 'online',
       createdAt: '2022-11-13 14:35:02',
       progress: 100,
-      method: '应用崩溃检测',
+      method: '应用崩溃测试',
       page: tmp,
       user1: 'user04',
       user2: 'user01',
@@ -150,7 +150,7 @@ const genList = (current: number, pageSize: number) => {
       status: 'error',
       createdAt: '2022-11-08 20:14:32',
       progress: 10,
-      method: '图片替代文本检测',
+      method: '图片替代文本测试',
       page: tmp,
       user1: 'user04',
       user2: 'user01',
@@ -164,7 +164,7 @@ const genList = (current: number, pageSize: number) => {
       status: 'online',
       createdAt: '2022-11-06 11:24:52',
       progress: 100,
-      method: '图片替代文本检测',
+      method: '图片替代文本测试',
       page: tmp,
       user1: 'user04',
       user2: 'user01',
@@ -255,7 +255,7 @@ const genList = (current: number, pageSize: number) => {
       // createdAt: new Date(new Date().getTime() - 1000 * 60 * 60 * 2 * i).getTime(),
       // progress: id !== 2 ? Math.ceil(Math.random() * 100) : 100,
       taskId: generateRdStr() + '.jar',
-      // method: ['图片替代文本检测', '应用崩溃检测'][Math.floor(Math.random() * 100) % 2],
+      // method: ['图片替代文本测试', '应用崩溃测试'][Math.floor(Math.random() * 100) % 2],
     });
   }
   // tableListDataSource.reverse();
