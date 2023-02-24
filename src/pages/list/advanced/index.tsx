@@ -729,7 +729,7 @@ const Advanced: FC = () => {
       key: 'memo',
     },
     {
-      title: '置操作',
+      title: '操作',
       dataIndex: 'status',
       width: 120,
       render: (dom, entity) => {
@@ -743,7 +743,7 @@ const Advanced: FC = () => {
               // handleModalVisible2(true);
             }}
           >
-            完成
+            置完成
           </Button>
         );
       },
