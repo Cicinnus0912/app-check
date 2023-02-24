@@ -45,6 +45,7 @@ import type { ProDescriptionsItemProps } from '@ant-design/pro-descriptions';
 import ProDescriptions from '@ant-design/pro-descriptions';
 import styles from './style.less';
 import ProForm, {
+  ProFormDigit,
   ModalForm,
   ProFormText,
   ProFormTextArea,
@@ -727,6 +728,36 @@ const Advanced: FC = () => {
       dataIndex: 'detail',
       key: 'memo',
     },
+    {
+      title: '置操作',
+      dataIndex: 'status',
+      width: 120,
+      render: (dom, entity) => {
+        return (
+          <Button
+            key="editable"
+            type='primary'
+            size='small'
+            disabled={dom == 'online'}
+            onClick={() => {
+              // handleModalVisible2(true);
+            }}
+          >
+            完成
+          </Button>
+        );
+      },
+      // render: (text, record, _, action) => [
+      //   <a
+      //     key="editable"
+      //     onClick={() => {
+      //       // action?.startEditable?.(record.key);
+      //     }}
+      //   >
+      //     审批
+      //   </a>,
+      // ],
+    },
   ];
 
   const contentList = {
@@ -983,6 +1014,8 @@ const Advanced: FC = () => {
           name="name2"
           label="APP应用版本"
         />
+        <ProFormDigit label="预期遍历页数" name="pageNum" width="sm" min={1} max={10}/>
+        <ProFormDigit label="最大深度" name="maxDepth" width="sm" min={1} max={10}/>
         <ProFormSelect
           showSearch={true}
           options={[
