@@ -47,11 +47,35 @@ export type AdvancedOperation3 = {
   authority: string;
 };
 
+export type AdvancedOperation4 = {
+  key: number;
+  disabled?: boolean;
+  href: string;
+  avatar: string;
+  name: string;
+  owner: string;
+  desc: string;
+  callNo: number;
+  status: string;
+  updatedAt: number;
+  createdAt: string;
+  progress: number;
+  taskId: string;
+  method: string;
+  version: string;
+  page: Array;
+  user1: string;
+  user2: string;
+  title: string;
+  detail: string;
+};
+
 export interface AdvancedProfileData {
   advancedOperation?: AdvancedOperation[];
   advancedOperation1?: AdvancedOperation1[];
   advancedOperation2?: AdvancedOperation2[];
   advancedOperation3?: AdvancedOperation3[];
+  advancedOperation4?: AdvancedOperation4[];
 }
 
 export type TableListItem = {
@@ -71,7 +95,6 @@ export type TableListItem = {
   method: string;
   version: string;
   page: Array;
-  kongjian: string;
 };
 
 export type TableListPagination = {

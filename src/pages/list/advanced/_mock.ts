@@ -207,6 +207,29 @@ const advancedOperation3 = [
   // },
 ];
 
+const advancedOperation4 = [
+  {
+    version: 'version 1.0.0',
+    status: 'running',
+    method: '图片替代文本检测',
+    createdAt: '2022-11-15 08:38:42',
+    user1: 'user04',
+    user2: 'user01',
+    title: 'MainActivity替代文本缺失，组件为Button',
+    detail: 'com.example.testapp.MainActivity页面存在图片替代文本缺失，控件为<node index="1" text="" resource-id="" class="android.widget.ImageView" package="com.example.testapp" content-desc="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" long-clickable="false" password="false" selected="false" visible-to-user="true" bounds="[413,250][826,663]" />',
+  },
+  {
+    version: 'version 1.0.0',
+    status: 'online',
+    method: '应用崩溃检测',
+    createdAt: '2022-11-15 10:28:35',
+    user1: 'user04',
+    user2: 'user01',
+    title: 'MainActivity替代文本缺失，组件为Button',
+    detail: 'com.example.testapp.Activity2_2页面存在图片替代文本缺失，请及时修复，控件为<node index="1" text="" resource-id="" class="android.widget.ImageView" package="com.example.testapp" content-desc="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" long-clickable="false" password="false" selected="false" visible-to-user="true" bounds="[413,250][826,663]" />',
+  },
+];
+
 function getProfileAppData(req: Request, res: Response) {
   const result = {
     data: {
@@ -214,6 +237,7 @@ function getProfileAppData(req: Request, res: Response) {
       advancedOperation1,
       advancedOperation2,
       advancedOperation3,
+      advancedOperation4,
     },
   };
   console.log('data', result);

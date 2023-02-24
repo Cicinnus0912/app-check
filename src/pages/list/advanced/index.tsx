@@ -175,7 +175,7 @@ const Advanced: FC = () => {
     tabActiveKey: 'detail',
   });
   const { data = {}, loading } = useRequest<{ data: AdvancedProfileData }>(queryAppProfile);
-  const { advancedOperation, advancedOperation1, advancedOperation2, advancedOperation3 } = data;
+  const { advancedOperation, advancedOperation1, advancedOperation2, advancedOperation3, advancedOperation4 } = data;
   const [createModalVisible, handleModalVisible] = useState<boolean>(false);
   const [createModalVisible1, handleModalVisible1] = useState<boolean>(false);
   const [createModalVisible2, handleModalVisible2] = useState<boolean>(false);
@@ -828,13 +828,13 @@ const Advanced: FC = () => {
           ]}
           request={rule}
           columns={taskColumns}
-          rowSelection={{
-            onChange: (_, selectedRows) => {
-              setSelectedRows(selectedRows);
-            },
-          }}
+          // rowSelection={{
+          //   onChange: (_, selectedRows) => {
+          //     setSelectedRows(selectedRows);
+          //   },
+          // }}
         />
-        {selectedRowsState?.length > 0 && (
+        {/* {selectedRowsState?.length > 0 && (
           <FooterToolbar
             extra={
               <div>
@@ -847,9 +847,9 @@ const Advanced: FC = () => {
                   {selectedRowsState.length}
                 </a>{' '}
                 项 &nbsp;&nbsp;
-                {/* <span>
+                <span>
                   服务调用次数总计 {selectedRowsState.reduce((pre, item) => pre + item.callNo!, 0)} 万
-                </span> */}
+                </span>
               </div>
             }
           >
@@ -862,9 +862,9 @@ const Advanced: FC = () => {
             >
               批量删除
             </Button>
-            {/* <Button type="primary">批量审批</Button> */}
+            <Button type="primary">批量审批</Button>
           </FooterToolbar>
-        )}
+        )} */}
         <ModalForm
           title="新建检测任务"
           width="400px"
@@ -1144,15 +1144,15 @@ const Advanced: FC = () => {
           //     <PlusOutlined /> 新建检测任务
           //   </Button>,
           // ]}
-          request={rule}
+          dataSource={advancedOperation4}
           columns={problemColumns}
-          rowSelection={{
-            onChange: (_, selectedRows) => {
-              setSelectedRows(selectedRows);
-            },
-          }}
+          // rowSelection={{
+          //   onChange: (_, selectedRows) => {
+          //     setSelectedRows(selectedRows);
+          //   },
+          // }}
         />
-        {selectedRowsState?.length > 0 && (
+        {/* {selectedRowsState?.length > 0 && (
           <FooterToolbar
             extra={
               <div>
@@ -1165,9 +1165,9 @@ const Advanced: FC = () => {
                   {selectedRowsState.length}
                 </a>{' '}
                 项 &nbsp;&nbsp;
-                {/* <span>
+                <span>
                   服务调用次数总计 {selectedRowsState.reduce((pre, item) => pre + item.callNo!, 0)} 万
-                </span> */}
+                </span>
               </div>
             }
           >
@@ -1180,9 +1180,9 @@ const Advanced: FC = () => {
             >
               批量删除
             </Button>
-            {/* <Button type="primary">批量审批</Button> */}
+            <Button type="primary">批量审批</Button>
           </FooterToolbar>
-        )}
+        )} */}
       </div>
     ),
   };
@@ -1480,7 +1480,7 @@ const Advanced: FC = () => {
       >
         <ProFormText
           label="APP应用名称"
-          // readonly={true}
+          readonly={true}
           initialValue="遍历测试应用"
           // placeholder="请输入版本号，格式要求为x.y.z"
           // fieldProps={{
@@ -1498,7 +1498,7 @@ const Advanced: FC = () => {
         />
         <ProFormText
           label="申请权限"
-          // readonly={true}
+          readonly={true}
           initialValue="管理者"
           // placeholder="请输入版本号，格式要求为x.y.z"
           // fieldProps={{
@@ -1516,7 +1516,7 @@ const Advanced: FC = () => {
         />
         <ProFormTextArea
           label="申请理由"
-          // readonly={true}
+          readonly={true}
           initialValue="-"
           rules={[
             {
@@ -1726,19 +1726,19 @@ const Advanced: FC = () => {
         </Row>
         <Row gutter={16}>
           <Col lg={22} md={12} sm={24}>
-            {/* <ProFormTextArea
+            <ProFormTextArea
               label={fieldLabels.detail}
               name="detail"
               rules={[{ required: true, message: '请输入任务详情' }]}
               placeholder="请输入任务详情"
-            /> */}
-            <ProForm.Item
+            />
+            {/* <ProForm.Item
               name="content"
               label="任务详情"
               rules={[{ required: true, message: '请输入详情' }]}
             >
               <BraftEditor value={null} style={{ height: "300px" }}/>
-            </ProForm.Item>
+            </ProForm.Item> */}
           </Col>
         </Row>
       </ModalForm>
