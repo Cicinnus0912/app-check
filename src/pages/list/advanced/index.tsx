@@ -212,6 +212,30 @@ const Advanced: FC = () => {
   const [fixedEntity, setFixEntity] = useState({});
   const [selectedRowsState, setSelectedRows] = useState<TableListItem[]>([]);
 
+  const getVersionList = () => {
+    const list = [];
+    advancedOperation1.map((item) => { console.log(item, item.version); list.push(item.version)});
+    console.log('versions', list)
+    const res =  [];
+    for (let item of list) {
+      res.push({ value: item, label: item });
+    }
+    console.log(res);
+    return res;
+  }
+
+  const getMethodList = () => {
+    const list = [];
+    advancedOperation2.map((item) => { console.log(item, item.key); list.push(item.key)});
+    console.log('versions', list)
+    const res =  [];
+    for (let item of list) {
+      res.push({ value: item, label: item });
+    }
+    console.log(res);
+    return res;
+  }
+
   const operationTabList = [
     {
       key: 'tab1',
@@ -926,13 +950,18 @@ const Advanced: FC = () => {
           visible={createModalVisible3}
           onVisibleChange={handleModalVisible3}
           onFinish={async (value) => {
-            const success = await handleAdd(value as TableListItem);
-            if (success) {
-              handleModalVisible3(false);
-              if (actionRef.current) {
-                actionRef.current.reload();
-              }
-            }
+            // const success = await handleAdd(value as TableListItem);
+            // if (success) {
+            //   handleModalVisible3(false);
+            //   if (actionRef.current) {
+            //     actionRef.current.reload();
+            //   }
+            // }
+            handleModalVisible3(false);
+            let tmp = advancedOperation4.slice();
+            value = Object.assign(value, {status: 'running', progress: 0, createdAt: formatDate(new Date(), 'yyyy-MM-dd hh:mm:ss')});
+            tmp.unshift(value);
+            setInitialState((s) => ({ ...s, taskList: tmp }));
           }}
         >
         {/* <ProFormText
@@ -994,40 +1023,41 @@ const Advanced: FC = () => {
         /> */}
         <ProFormSelect
           showSearch={true}
-          options={[
-            {
-              value: 'alipay',
-              label: '支付宝',
-            },
-            {
-              value: 'baidu',
-              label: '百度',
-            },
-            {
-              value: 'wangyiyun',
-              label: '网易云',
-            },
-            {
-              value: 'tx',
-              label: '腾讯新闻',
-            },
-            {
-              value: 'meituan',
-              label: '美团',
-            },
-            {
-              value: 'xiecheng',
-              label: '携程',
-            },
-            {
-              value: 'yidong',
-              label: '中国移动',
-            },
-            {
-              value: 'chinaBank',
-              label: '中国银行',
-            },
-          ]}
+          options={getVersionList()}
+          // options={[
+          //   {
+          //     value: 'alipay',
+          //     label: '支付宝',
+          //   },
+          //   {
+          //     value: 'baidu',
+          //     label: '百度',
+          //   },
+          //   {
+          //     value: 'wangyiyun',
+          //     label: '网易云',
+          //   },
+          //   {
+          //     value: 'tx',
+          //     label: '腾讯新闻',
+          //   },
+          //   {
+          //     value: 'meituan',
+          //     label: '美团',
+          //   },
+          //   {
+          //     value: 'xiecheng',
+          //     label: '携程',
+          //   },
+          //   {
+          //     value: 'yidong',
+          //     label: '中国移动',
+          //   },
+          //   {
+          //     value: 'chinaBank',
+          //     label: '中国银行',
+          //   },
+          // ]}
           rules={[
             {
               required: true,
@@ -1035,45 +1065,46 @@ const Advanced: FC = () => {
             },
           ]}
           width="sm"
-          name="name2"
+          name="version"
           label="APP应用版本"
         />
         <ProFormSelect
           showSearch={true}
-          options={[
-            {
-              value: 'alipay',
-              label: '支付宝',
-            },
-            {
-              value: 'baidu',
-              label: '百度',
-            },
-            {
-              value: 'wangyiyun',
-              label: '网易云',
-            },
-            {
-              value: 'tx',
-              label: '腾讯新闻',
-            },
-            {
-              value: 'meituan',
-              label: '美团',
-            },
-            {
-              value: 'xiecheng',
-              label: '携程',
-            },
-            {
-              value: 'yidong',
-              label: '中国移动',
-            },
-            {
-              value: 'chinaBank',
-              label: '中国银行',
-            },
-          ]}
+          options={getMethodList()}
+          // options={[
+          //   {
+          //     value: 'alipay',
+          //     label: '支付宝',
+          //   },
+          //   {
+          //     value: 'baidu',
+          //     label: '百度',
+          //   },
+          //   {
+          //     value: 'wangyiyun',
+          //     label: '网易云',
+          //   },
+          //   {
+          //     value: 'tx',
+          //     label: '腾讯新闻',
+          //   },
+          //   {
+          //     value: 'meituan',
+          //     label: '美团',
+          //   },
+          //   {
+          //     value: 'xiecheng',
+          //     label: '携程',
+          //   },
+          //   {
+          //     value: 'yidong',
+          //     label: '中国移动',
+          //   },
+          //   {
+          //     value: 'chinaBank',
+          //     label: '中国银行',
+          //   },
+          // ]}
           rules={[
             {
               required: true,
@@ -1081,7 +1112,7 @@ const Advanced: FC = () => {
             },
           ]}
           width="sm"
-          name="name3"
+          name="method"
           label="APP应用测试方法"
         />
         <ProFormDigit label="预期遍历页数" name="pageNum" width="sm" min={1} max={1000} required/>
