@@ -8,11 +8,12 @@ import ProForm, {
   ProFormText,
   ProFormTextArea,
 } from '@ant-design/pro-form';
-import { useRequest } from 'umi';
+import { useModel, useRequest } from 'umi';
 import { queryCurrent } from '../service';
 import { queryProvince, queryCity } from '../service';
-
+import localStorage from "localStorage";
 import styles from './BaseView.less';
+import { values } from 'lodash';
 
 const validatorPhone = (rule: any, value: string[], callback: (message?: string) => void) => {
   if (!value[0]) {
@@ -42,9 +43,15 @@ const AvatarView = ({ avatar }: { avatar: string }) => (
 );
 
 const BaseView: React.FC = () => {
-  const { data: currentUser, loading } = useRequest(() => {
+  // const { data: currentUser, loading } = useRequest(() => {
+  //   return queryCurrent();
+  // });
+  const { initialState, setInitialState } = useModel('@@initialState');
+  const { loading } = useRequest(() => {
     return queryCurrent();
   });
+  // console.log(222, initialState?.currentUser);
+  const currentUser = initialState?.currentUser;
 
   const getAvatarURL = () => {
     if (currentUser) {
@@ -57,7 +64,17 @@ const BaseView: React.FC = () => {
     return '';
   };
 
-  const handleFinish = async () => {
+  const waitTime = (time: number = 100) => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(true);
+      }, time);
+    });
+  };
+
+  const handleFinish = async (values) => {
+    await waitTime(500);
+    setInitialState((s) => ({ ...s, currentUser: values }));
     message.success('更新基本信息成功');
   };
   return (
@@ -76,9 +93,10 @@ const BaseView: React.FC = () => {
               }}
               initialValues={{
                 ...currentUser,
-                phone: currentUser?.phone.split('-'),
+                // phone: currentUser?.phone.split('-'),
               }}
               hideRequiredMark
+              onValuesChange={(changeValues) => console.log(1, changeValues, localStorage.getItem('account'))}
             >
               <ProFormText
                 width="md"
@@ -91,6 +109,7 @@ const BaseView: React.FC = () => {
                     message: '请输入您的邮箱!',
                   },
                 ]}
+
               />
               <ProFormText
                 width="md"
@@ -104,7 +123,7 @@ const BaseView: React.FC = () => {
                 ]}
               />
               <ProFormTextArea
-                name="profile"
+                name="signature"
                 label="个人简介"
                 rules={[
                   {

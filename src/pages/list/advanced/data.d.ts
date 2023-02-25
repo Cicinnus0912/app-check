@@ -14,6 +14,7 @@ export type AdvancedOperation = {
 
 export type AdvancedOperation1 = {
   key: string;
+  version: string;
   type: string;
   description: string;
   name: string;

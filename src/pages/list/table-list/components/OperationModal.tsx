@@ -28,7 +28,7 @@ const OperationModal: FC<OperationModalProps> = (props) => {
       visible={visible}
       title={done ? null : '注册应用'}
       className={styles.standardListForm}
-      width={640}
+      width={500}
       onFinish={async (values) => {
         onSubmit(values);
       }}
@@ -41,14 +41,24 @@ const OperationModal: FC<OperationModalProps> = (props) => {
         destroyOnClose: true,
         bodyStyle: done ? { padding: '72px 0' } : {},
       }}
+      initialValues={{
+        authority: '管理者',
+      }}
     >
       {!done ? (
         <>
           <ProFormText
-            name="title"
+            name="name"
             label="应用名称"
             rules={[{ required: true, message: '请输入应用名称' }]}
-            placeholder="请输入"
+            placeholder="请输入应用名称"
+          />
+          <ProFormText
+            name="authority"
+            label="应用权限"
+            disabled={true}
+            rules={[{ required: true, message: '请输入应用权限' }]}
+            placeholder="请输入应用权限"
           />
           {/* <ProFormDateTimePicker
             name="createdAt"
@@ -80,11 +90,11 @@ const OperationModal: FC<OperationModalProps> = (props) => {
           <ProFormUploadButton
             extra="支持扩展名：.jpg .png .ico .svg"
             label="应用Logo"
-            name="file"
+            name="avatar"
             title="上传应用Logo"
           />
           <ProFormTextArea
-            name="subDescription"
+            name="desc"
             label="应用描述"
             rules={[{ message: '请输入至少五个字符的应用描述！', min: 5 }]}
             placeholder="请输入至少五个字符"
@@ -94,10 +104,9 @@ const OperationModal: FC<OperationModalProps> = (props) => {
         <Result
           status="success"
           title="操作成功"
-          subTitle="一系列的信息描述，很短同样也可以带标点。"
           extra={
             <Button type="primary" onClick={onDone}>
-              知道了
+              完成
             </Button>
           }
           className={styles.formResult}

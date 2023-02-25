@@ -12,9 +12,9 @@ const generateRdStr = function () {
 
 const advancedOperation = [
   {
-    status: 'agree',
+    status: 'reject',
     avatar: 'https://gw.alipayobjects.com/zos/rmsportal/WdGqmHpayyMjiEhcKoVE.png',
-    key: 'user06',
+    key: 'user6',
     authority: '参与者',
     description: '支付宝,全球领先的独立第三方支付平台。',
     name: '支付宝',
@@ -25,7 +25,7 @@ const advancedOperation = [
   {
     status: 'reject',
     avatar: 'https://gw.alipayobjects.com/zos/rmsportal/WdGqmHpayyMjiEhcKoVE.png',
-    key: 'user07',
+    key: 'user6',
     authority: '测试者',
     description: '支付宝,全球领先的独立第三方支付平台。',
     name: '支付宝',
@@ -36,69 +36,87 @@ const advancedOperation = [
 ];
 
 const advancedOperation1 = [
+  // {
+  //   key: 'version 10.3.20',
+  //   description: '集五福，过福年！升级至最新版，2022年新春享更多玩法。',
+  //   name: 'user1',
+  //   status: 'agree',
+  //   createdAt: '2022-11-29  19:52:36',
+  //   memo: 'alipay_v_10_3_20.apk',
+  // },
+  // {
+  //   key: 'version 10.3.10',
+  //   description:
+  //     'iOS14小组件：新增可以添加到手机桌面的小组件「支付宝」「蚂蚁森林」「蚂蚁庄园」「行情看板」，仅iOS14及以上的系统版本可用。',
+  //   name: 'user1',
+  //   status: 'reject',
+  //   createdAt: '2022-10-31  18:44:14',
+  //   memo: 'alipay_v_10_3_10.apk',
+  // },
+  // {
+  //   key: 'version 10.3.0',
+  //   description: '首页“扫一扫——识物”：对准物体拍照识别，快速获取商品、植物、动物、汽车的相关信息。',
+  //   name: 'user1',
+  //   status: 'agree',
+  //   createdAt: '2022-09-19  16:02:06',
+  //   memo: 'alipay_v_10_3_0.apk',
+  // },
+  // {
+  //   key: 'version 10.2.96',
+  //   description: '首页“付钱”“收钱”合并，使用更方便。',
+  //   name: 'user1',
+  //   status: 'agree',
+  //   createdAt: '2022-08-31  19:11:03',
+  //   memo: 'alipay_v_10_2_96.apk',
+  // },
+  // {
+  //   key: 'version 10.2.90',
+  //   description: '花呗金升级，做任务赚花呗金，抵扣花呗还款额，会花能省，持家小能手就是你。',
+  //   name: 'user1',
+  //   status: 'agree',
+  //   createdAt: '2022-08-25  20:22:12',
+  //   memo: 'alipay_v_10_2_90.apk',
+  // },
+  // {
+  //   key: 'version 10.2.86',
+  //   description: '首页新增“出行”，搭公交、乘地铁、坐火车、骑单车、网约车，出行更便捷。',
+  //   name: 'user1',
+  //   status: 'agree',
+  //   createdAt: '2022-08-16  14:11:36',
+  //   memo: 'alipay_v_10_2_82.apk',
+  // },
+  // {
+  //   key: 'version 10.2.80',
+  //   description: '支付宝品牌色全新升级，更亲和、更明快。',
+  //   name: 'user1',
+  //   status: 'agree',
+  //   createdAt: '2022-08-04  19:53:62',
+  //   memo: 'alipay_v_10_2_80.apk',
+  // },
+  // {
+  //   key: 'version 10.2.76',
+  //   description: '“财富”频道更名为“理财”，理财就上支付宝，安全方便又省心。',
+  //   name: 'user1',
+  //   status: 'agree',
+  //   createdAt: '2022-07-04  15:23:12',
+  //   memo: 'alipay_v_10_2_76.apk',
+  // },
   {
-    key: 'version 10.3.20',
-    description: '集五福，过福年！升级至最新版，2022年新春享更多玩法。',
-    name: 'user',
+    key: '1',
+    version: 'version 1.0.0',
+    description: '首次上传应用',
+    name: 'user1',
     status: 'agree',
-    createdAt: '2022-11-29  19:52:36',
-    memo: 'alipay_v_10_3_20.apk',
+    createdAt: '2022-11-21  19:26:12',
+    memo: 'alipay_v_10_2_76.apk',
   },
   {
-    key: 'version 10.3.10',
-    description:
-      'iOS14小组件：新增可以添加到手机桌面的小组件「支付宝」「蚂蚁森林」「蚂蚁庄园」「行情看板」，仅iOS14及以上的系统版本可用。',
-    name: 'user',
-    status: 'reject',
-    createdAt: '2022-10-31  18:44:14',
-    memo: 'alipay_v_10_3_10.apk',
-  },
-  {
-    key: 'version 10.3.0',
-    description: '首页“扫一扫——识物”：对准物体拍照识别，快速获取商品、植物、动物、汽车的相关信息。',
-    name: 'user',
+    key: '2',
+    version: 'version 1.0.0',
+    description: '图片替代文本测试版本',
+    name: 'user1',
     status: 'agree',
-    createdAt: '2022-09-19  16:02:06',
-    memo: 'alipay_v_10_3_0.apk',
-  },
-  {
-    key: 'version 10.2.96',
-    description: '首页“付钱”“收钱”合并，使用更方便。',
-    name: 'user',
-    status: 'agree',
-    createdAt: '2022-08-31  19:11:03',
-    memo: 'alipay_v_10_2_96.apk',
-  },
-  {
-    key: 'version 10.2.90',
-    description: '花呗金升级，做任务赚花呗金，抵扣花呗还款额，会花能省，持家小能手就是你。',
-    name: 'user',
-    status: 'agree',
-    createdAt: '2022-08-25  20:22:12',
-    memo: 'alipay_v_10_2_90.apk',
-  },
-  {
-    key: 'version 10.2.86',
-    description: '首页新增“出行”，搭公交、乘地铁、坐火车、骑单车、网约车，出行更便捷。',
-    name: 'user',
-    status: 'agree',
-    createdAt: '2022-08-16  14:11:36',
-    memo: 'alipay_v_10_2_82.apk',
-  },
-  {
-    key: 'version 10.2.80',
-    description: '支付宝品牌色全新升级，更亲和、更明快。',
-    name: 'user',
-    status: 'agree',
-    createdAt: '2022-08-04  19:53:62',
-    memo: 'alipay_v_10_2_80.apk',
-  },
-  {
-    key: 'version 10.2.76',
-    description: '“财富”频道更名为“理财”，理财就上支付宝，安全方便又省心。',
-    name: 'user',
-    status: 'agree',
-    createdAt: '2022-07-04  15:23:12',
+    createdAt: '2022-11-29  15:23:12',
     memo: 'alipay_v_10_2_76.apk',
   },
 ];
@@ -107,19 +125,19 @@ const advancedOperation2 = [
   {
     key: '图片替代文本测试',
     description: '找出移动应用中的图片控件，测试该控件是否具有替代文本。',
-    name: 'user',
+    name: 'user1',
     status: 'agree',
     createdAt: '2022-11-20  19:52:36',
     memo: `${generateRdStr()}.jar`,
   },
-  {
-    key: '应用崩溃测试',
-    description: '应用崩溃监控当App运行时，对应用的崩溃捕获和分析。',
-    name: 'user01',
-    status: 'reject',
-    createdAt: '2022-10-31  18:44:14',
-    memo: `${generateRdStr()}.jar`,
-  },
+  // {
+  //   key: '应用崩溃测试',
+  //   description: '应用崩溃监控当App运行时，对应用的崩溃捕获和分析。',
+  //   name: 'user01',
+  //   status: 'reject',
+  //   createdAt: '2022-10-31  18:44:14',
+  //   memo: `${generateRdStr()}.jar`,
+  // },
 ];
 
 const advancedOperation3 = [
@@ -178,7 +196,7 @@ const advancedOperation3 = [
   {
     avatar: 'https://gw.alipayobjects.com/zos/rmsportal/WdGqmHpayyMjiEhcKoVE.png',
     key: 'user04',
-    authority: '参与者',
+    authority: '测试者',
     description: '支付宝,全球领先的独立第三方支付平台',
     name: '支付宝',
     status: 'agree',
@@ -188,7 +206,7 @@ const advancedOperation3 = [
   {
     avatar: 'https://gw.alipayobjects.com/zos/rmsportal/WdGqmHpayyMjiEhcKoVE.png',
     key: 'user05',
-    authority: '参与者',
+    authority: '测试者',
     description: '支付宝,全球领先的独立第三方支付平台',
     name: '支付宝',
     status: 'agree',
@@ -353,7 +371,7 @@ const advancedOperation5 = [
     user1: 'user04',
     user2: 'user01',
     title: 'MainActivity替代文本缺失，组件为Button',
-    detail: 'com.example.testapp.Activity2_2页面存在图片替代文本缺失，请及时修复，控件为<node index="1" text="" resource-id="" class="android.widget.ImageView" package="com.example.testapp" content-desc="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" long-clickable="false" password="false" selected="false" visible-to-user="true" bounds="[413,250][826,663]" />',
+    detail: 'com.example.testapp.Activity2_2页面存在图片替代文本缺失，请及时修复，控件为<node index="1"0 text="" resource-id="" class="android.widget.ImageView" package="com.example.testapp" content-desc="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" long-clickable="false" password="false" selected="false" visible-to-user="true" bounds="[413,250][826,663]" />',
   },
 ];
 
@@ -368,7 +386,6 @@ function getProfileAppData(req: Request, res: Response) {
       advancedOperation5
     },
   };
-  console.log('data', result);
   return res.json(result);
 }
 

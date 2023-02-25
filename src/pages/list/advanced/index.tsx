@@ -63,16 +63,15 @@ const description = (
   <RouteContext.Consumer>
     {({ isMobile }) => (
       <Descriptions className={styles.headerList} size="default" column={isMobile ? 1 : 1}>
-        <Descriptions.Item label="创建人员">user</Descriptions.Item>
+        <Descriptions.Item label="创建人员">user1</Descriptions.Item>
         {/* <Descriptions.Item label="应用简介">
           支付宝,全球领先的独立第三方支付平台,致力于为广大用户提供安全快速的电子支付/网上支付/安全支付/手机支付体验,及转账收款/水电煤缴费/信用卡还款/AA收款等生活服务应用。
         </Descriptions.Item> */}
         <Descriptions.Item label="成员信息">
-          管理者：<Tag color="green">user</Tag>
-          <Tag color="green">user01</Tag> | 测试者：
-          <Tag color="blue">user02</Tag> | 参与者：<Tag color="">user03</Tag>
+          管理者：<Tag color="green">user1</Tag> | 测试者：
+          <Tag color="blue">user2</Tag> | 参与者：<Tag color="">user3</Tag>
         </Descriptions.Item>
-        <Descriptions.Item label="创建时间">2022-06-21</Descriptions.Item>
+        <Descriptions.Item label="创建时间">2022-11-21</Descriptions.Item>
         {/* <Descriptions.Item label="关联单据">
           <a href="">12421</a>
         </Descriptions.Item> */}
@@ -216,8 +215,8 @@ const Advanced: FC = () => {
   const versionList = [
     {
       title: '应用版本号',
-      dataIndex: 'key',
-      key: 'key',
+      dataIndex: 'version',
+      key: 'version',
       render: (dom, entity) => {
         return <Tag>{dom}</Tag>;
       },
@@ -240,14 +239,14 @@ const Advanced: FC = () => {
       dataIndex: 'createdAt',
       key: 'createdAt',
     },
-    {
-      title: 'apk文件',
-      dataIndex: 'memo',
-      key: 'memo',
-      render: (dom, entity) => {
-        return <a href="">{dom}</a>;
-      },
-    },
+    // {
+    //   title: 'apk文件',
+    //   dataIndex: 'memo',
+    //   key: 'memo',
+    //   render: (dom, entity) => {
+    //     return <a href="">{dom}</a>;
+    //   },
+    // },
   ];
 
   const methodList = [
@@ -277,14 +276,14 @@ const Advanced: FC = () => {
       dataIndex: 'createdAt',
       key: 'createdAt',
     },
-    {
-      title: 'jar文件',
-      dataIndex: 'memo',
-      key: 'memo',
-      render: (dom, entity) => {
-        return <a href="">{dom}</a>;
-      },
-    },
+    // {
+    //   title: 'jar文件',
+    //   dataIndex: 'memo',
+    //   key: 'memo',
+    //   render: (dom, entity) => {
+    //     return <a href="">{dom}</a>;
+    //   },
+    // },
   ];
 
   const authorityList = [
@@ -1235,7 +1234,7 @@ const Advanced: FC = () => {
             size="large"
             src={'https://i.postimg.cc/RZbXszL5/test.png'}
           />
-          <span>遍历测试应用</span>
+          <span>测试应用1</span>
         </>
       } // <Avatar size="small" src={item.avatar} />
       // extra={action}

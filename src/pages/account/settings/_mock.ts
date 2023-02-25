@@ -1,6 +1,5 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { Request, Response } from 'express';
-
 const city = require('./geographic/city.json');
 const province = require('./geographic/province.json');
 
@@ -19,10 +18,10 @@ function getCity(req: Request, res: Response) {
 function getCurrentUse(req: Request, res: Response) {
   return res.json({
     data: {
-      name: 'user',
+      name: 'user1',
       avatar: 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
       userid: '00000001',
-      email: '1234565@qq.com',
+      email: '244271172@qq.com',
       signature: '好好学习，天天向上',
       title: '管理员',
       group: '研究生',

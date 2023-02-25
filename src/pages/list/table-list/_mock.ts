@@ -21,53 +21,58 @@ const genList = (current: number, pageSize: number) => {
     },
   };
   const appList = [
+    {
+      name: '测试应用2',
+      description: '测试应用2',
+      avatar: 'https://i.postimg.cc/RZbXszL5/test.png',
+    },
+    {
+      name: '测试应用1',
+      description: '测试应用1，用于测试系统功能',
+      avatar: 'https://i.postimg.cc/RZbXszL5/test.png',
+    },
     // {
-    //   name: '遍历测试应用',
-    //   description: '遍历测试应用',
-    //   avatar: 'https://i.postimg.cc/RZbXszL5/test.png',
+    //   name: '支付宝',
+    //   description: '支付宝,全球领先的独立第三方支付平台。',
+    //   avatar: 'https://gw.alipayobjects.com/zos/rmsportal/WdGqmHpayyMjiEhcKoVE.png', // 支付宝
     // },
-    {
-      name: '支付宝',
-      description: '支付宝,全球领先的独立第三方支付平台。',
-      avatar: 'https://gw.alipayobjects.com/zos/rmsportal/WdGqmHpayyMjiEhcKoVE.png', // 支付宝
-    },
-    {
-      name: '百度',
-      description: '全球领先的中文搜索引擎、致力于让网民更便捷地获取信息，找到所求。',
-      avatar: 'https://www.baidu.com/favicon.ico',
-    },
-    {
-      name: '网易云',
-      description: '网易云音乐是一款专注于发现与分享的音乐产品',
-      avatar: 'https://i.postimg.cc/fbg0Y9bJ/wangyiyun.png',
-    },
-    {
-      name: '腾讯新闻',
-      description: '集新闻信息,区域垂直生活服务、社会化媒体资讯和产品为一体的互联网媒体平台',
-      avatar: 'https://i.postimg.cc/wBk6D8TM/tengxun.png',
-    },
-    {
-      name: '美团',
-      description:
-        '美食攻略,外卖网上订餐,酒店预订,旅游团购,飞机票火车票,电影票,ktv团购吃喝玩乐全都有!',
-      avatar: 'https://i.postimg.cc/fbR4n4CG/meituan.png',
-    },
-    {
-      name: '携程',
-      description: '中国领先的在线旅行服务公司,向超过9000万会员提供酒店预订、酒店点评服务',
-      avatar: 'https://i.postimg.cc/mZYGHSP6/xiecheng.png',
-    },
-    {
-      name: '中国移动',
-      description: '中国规模最大的移动通信运营商，主要经营移动话音、数据、IP电话和多媒体业务',
-      avatar: 'https://i.postimg.cc/pdGRTQL1/yidong.png',
-    },
-    {
-      name: '中国银行',
-      description:
-        '中国国际化和多元化程度最高的银行,在中国内地及六十多个国家和地区为客户提供全面的金融服务。',
-      avatar: 'https://i.postimg.cc/28hWZyvx/chinabank.png',
-    },
+    // {
+    //   name: '百度',
+    //   description: '全球领先的中文搜索引擎、致力于让网民更便捷地获取信息，找到所求。',
+    //   avatar: 'https://www.baidu.com/favicon.ico',
+    // },
+    // {
+    //   name: '网易云',
+    //   description: '网易云音乐是一款专注于发现与分享的音乐产品',
+    //   avatar: 'https://i.postimg.cc/fbg0Y9bJ/wangyiyun.png',
+    // },
+    // {
+    //   name: '腾讯新闻',
+    //   description: '集新闻信息,区域垂直生活服务、社会化媒体资讯和产品为一体的互联网媒体平台',
+    //   avatar: 'https://i.postimg.cc/wBk6D8TM/tengxun.png',
+    // },
+    // {
+    //   name: '美团',
+    //   description:
+    //     '美食攻略,外卖网上订餐,酒店预订,旅游团购,飞机票火车票,电影票,ktv团购吃喝玩乐全都有!',
+    //   avatar: 'https://i.postimg.cc/fbR4n4CG/meituan.png',
+    // },
+    // {
+    //   name: '携程',
+    //   description: '中国领先的在线旅行服务公司,向超过9000万会员提供酒店预订、酒店点评服务',
+    //   avatar: 'https://i.postimg.cc/mZYGHSP6/xiecheng.png',
+    // },
+    // {
+    //   name: '中国移动',
+    //   description: '中国规模最大的移动通信运营商，主要经营移动话音、数据、IP电话和多媒体业务',
+    //   avatar: 'https://i.postimg.cc/pdGRTQL1/yidong.png',
+    // },
+    // {
+    //   name: '中国银行',
+    //   description:
+    //     '中国国际化和多元化程度最高的银行,在中国内地及六十多个国家和地区为客户提供全面的金融服务。',
+    //   avatar: 'https://i.postimg.cc/28hWZyvx/chinabank.png',
+    // },
   ];
   for (let i = 0; i < pageSize; i++) {
     const index = (current - 1) * 8 + i;
@@ -81,7 +86,8 @@ const genList = (current: number, pageSize: number) => {
       owner: '曲丽丽',
       desc: appList[i].description,
       callNo: Math.floor(Math.random() * 1000),
-      authority: authorityMap[i != 0 ? (Math.floor(Math.random() * 10) % 3).toString() : '1'].text,
+      // authority: authorityMap[i != 0 ? (Math.floor(Math.random() * 10) % 3).toString() : '1'].text,
+      authority: authorityMap['1'].text,
       updatedAt: new Date(),
       createdAt: new Date(),
       progress: Math.ceil(Math.random() * 100),
@@ -91,7 +97,7 @@ const genList = (current: number, pageSize: number) => {
   return tableListDataSource;
 };
 
-let tableListDataSource = genList(1, 8);
+let tableListDataSource = genList(1, 2);
 
 function getRule(req: Request, res: Response, u: string) {
   let realUrl = u;

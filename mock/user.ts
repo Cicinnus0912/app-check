@@ -44,10 +44,10 @@ export default {
     res.send({
       success: true,
       data: {
-        name: 'user',
+        name: 'user1',
         avatar: 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
         userid: '00000001',
-        email: '1234565@qq.com',
+        email: '244271172@qq.com',
         signature: '好好学习，天天向上',
         title: '管理员',
         group: '研究生2020级',

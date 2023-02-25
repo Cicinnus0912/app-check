@@ -19,80 +19,6 @@ import { rule, addRule, updateRule, removeRule } from './service';
 import type { TableListItem, TableListPagination } from './data';
 import OperationModal from './components/OperationModal';
 import { history } from 'umi';
-/**
- * 添加节点
- *
- * @param fields
- */
-
-const handleAdd = async (fields: TableListItem) => {
-  const hide = message.loading('正在添加');
-
-  try {
-    await addRule({ ...fields });
-    hide();
-    message.success('添加成功');
-    return true;
-  } catch (error) {
-    hide();
-    message.error('添加失败请重试！');
-    return false;
-  }
-};
-/**
- * 更新节点
- *
- * @param fields
- */
-
-const handleUpdate = async (fields: FormValueType, currentRow?: TableListItem) => {
-  const hide = message.loading('正在配置');
-
-  try {
-    await updateRule({
-      ...currentRow,
-      ...fields,
-    });
-    hide();
-    message.success('配置成功');
-    return true;
-  } catch (error) {
-    hide();
-    message.error('配置失败请重试！');
-    return false;
-  }
-};
-/**
- * 删除节点
- *
- * @param selectedRows
- */
-
-const handleRemove = async (selectedRows: TableListItem[]) => {
-  const hide = message.loading('正在删除');
-  if (!selectedRows) return true;
-
-  try {
-    await removeRule({
-      key: selectedRows.map((row) => row.key),
-    });
-    hide();
-    message.success('删除成功，即将刷新');
-    return true;
-  } catch (error) {
-    hide();
-    message.error('删除失败，请重试');
-    return false;
-  }
-};
-
-const waitTime = (time: number = 100) => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(true);
-    }, time);
-  });
-};
 
 const TableList: React.FC = () => {
   /** 新建窗口的弹窗 */
@@ -105,9 +31,84 @@ const TableList: React.FC = () => {
   const actionRef = useRef<ActionType>();
   const [currentRow, setCurrentRow] = useState<TableListItem>();
   const [selectedRowsState, setSelectedRows] = useState<TableListItem[]>([]);
-  const [tableList, setTableList] = useState<readonly TableListItem[]>([]);
+  const [tableList, setTableList] = useState<TableListItem[]>([]);
   const [editableKeys, setEditableRowKeys] = useState<React.Key[]>([]);
   const [done, setDone] = useState<boolean>(false);
+  /**
+ * 添加节点
+ *
+ * @param fields
+ */
+
+  const handleAdd = async (fields: TableListItem) => {
+    const hide = message.loading('正在添加');
+
+    try {
+      await addRule({ ...fields });
+      hide();
+      message.success('添加成功');
+      return true;
+    } catch (error) {
+      hide();
+      message.error('添加失败请重试！');
+      return false;
+    }
+  };
+  /**
+   * 更新节点
+   *
+   * @param fields
+   */
+
+  const handleUpdate = async (fields: FormValueType, currentRow?: TableListItem) => {
+    const hide = message.loading('正在配置');
+
+    try {
+      await updateRule({
+        ...currentRow,
+        ...fields,
+      });
+      hide();
+      message.success('配置成功');
+      return true;
+    } catch (error) {
+      hide();
+      message.error('配置失败请重试！');
+      return false;
+    }
+  };
+  /**
+   * 删除节点
+   *
+   * @param selectedRows
+   */
+
+  const handleRemove = async (selectedRows: TableListItem[]) => {
+    const hide = message.loading('正在删除');
+    if (!selectedRows) return true;
+
+    try {
+      await removeRule({
+        key: selectedRows.map((row) => row.key),
+      });
+      hide();
+      message.success('删除成功，即将刷新');
+      return true;
+    } catch (error) {
+      hide();
+      message.error('删除失败，请重试');
+      return false;
+    }
+  };
+
+  const waitTime = (time: number = 100) => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(true);
+      }, time);
+    });
+  };
+
   /** 国际化配置 */
 
   const handleDone = () => {
@@ -117,6 +118,12 @@ const TableList: React.FC = () => {
 
   const handleSubmit = (values: TableListItem) => {
     setDone(true);
+    const tmp = tableList.slice();
+    console.log('test', values)
+    tmp.push(values);
+    console.log('test', tmp)
+    setTableList(tmp);
+    console.log('test', tableList)
     // const method = values?.id ? 'update' : 'add';
     // postRun(method, values);
   };
@@ -390,41 +397,45 @@ const TableList: React.FC = () => {
         <ProFormSelect
           showSearch={true}
           options={[
+            // {
+            //   value: 'alipay',
+            //   label: '支付宝',
+            // },
+            // {
+            //   value: 'baidu',
+            //   label: '百度',
+            // },
+            // {
+            //   value: 'wangyiyun',
+            //   label: '网易云',
+            // },
+            // {
+            //   value: 'tx',
+            //   label: '腾讯新闻',
+            // },
+            // {
+            //   value: 'meituan',
+            //   label: '美团',
+            // },
+            // {
+            //   value: 'xiecheng',
+            //   label: '携程',
+            // },
+            // {
+            //   value: 'yidong',
+            //   label: '中国移动',
+            // },
+            // {
+            //   value: 'chinaBank',
+            //   label: '中国银行',
+            // },
             {
-              value: 'alipay',
-              label: '支付宝',
+              value: 'test1',
+              label: '测试应用1',
             },
             {
-              value: 'baidu',
-              label: '百度',
-            },
-            {
-              value: 'wangyiyun',
-              label: '网易云',
-            },
-            {
-              value: 'tx',
-              label: '腾讯新闻',
-            },
-            {
-              value: 'meituan',
-              label: '美团',
-            },
-            {
-              value: 'xiecheng',
-              label: '携程',
-            },
-            {
-              value: 'yidong',
-              label: '中国移动',
-            },
-            {
-              value: 'chinaBank',
-              label: '中国银行',
-            },
-            {
-              value: 'test',
-              label: '遍历测试应用',
+              value: 'test2',
+              label: '测试应用2',
             },
           ]}
           rules={[
