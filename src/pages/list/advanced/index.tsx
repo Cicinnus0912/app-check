@@ -209,6 +209,7 @@ const Advanced: FC = () => {
   const [showDetail, setShowDetail] = useState<boolean>(false);
   const actionRef = useRef<ActionType>();
   const [currentRow, setCurrentRow] = useState<TableListItem>();
+  const [fixedEntity, setFixEntity] = useState({});
   const [selectedRowsState, setSelectedRows] = useState<TableListItem[]>([]);
 
   const operationTabList = [
@@ -290,7 +291,7 @@ const Advanced: FC = () => {
       dataIndex: 'name',
       key: 'name',
       render: (dom, entity) => {
-        return <Tag color={dom == 'user' ? 'green' : 'blue'}>{dom}</Tag>;
+        return <Tag color={dom == 'user1' ? 'green' : 'blue'}>{dom}</Tag>;
       },
     },
     {
@@ -347,8 +348,8 @@ const Advanced: FC = () => {
     },
     {
       title: '申请人',
-      dataIndex: 'key',
-      key: 'key',
+      dataIndex: 'name',
+      key: 'name',
       width: 100,
     },
     {
@@ -372,6 +373,7 @@ const Advanced: FC = () => {
             key="editable"
             onClick={() => {
               handleModalVisible2(true);
+              setFixEntity(entity);
             }}
           >
             审批
@@ -544,8 +546,8 @@ const Advanced: FC = () => {
     },
     {
       title: '申请人',
-      dataIndex: 'key',
-      key: 'key',
+      dataIndex: 'name',
+      key: 'name',
       width: 100,
     },
     {
@@ -1247,6 +1249,31 @@ const Advanced: FC = () => {
   const onOperationTabChange = (key: string) => {
     seTabStatus({ ...tabStatus, operationKey: key });
   };
+  const padLeftZero = (str) => {
+    return ('00' + str).substr(str.length);
+  }
+  const formatDate = (date, fmt) => {
+    if(/(y+)/.test(fmt)){
+      fmt = fmt.replace(RegExp.$1,(date.getFullYear()+'').substr(4-RegExp.$1.length));
+    }
+    let o = {
+      'M+':date.getMonth() + 1,
+      'd+':date.getDate(),
+      'h+':date.getHours(),
+      'm+':date.getMinutes(),
+      's+':date.getSeconds()
+    };
+
+    // 遍历这个对象
+    for(let k in o){
+      if(new RegExp(`(${k})`).test(fmt)){
+        console.log(RegExp.$1)
+        let str = o[k] + '';
+        fmt = fmt.replace(RegExp.$1,(RegExp.$1.length===1)?str:padLeftZero(str));
+      }
+    }
+    return fmt;
+  };
 
   return (
     <PageContainer
@@ -1327,35 +1354,9 @@ const Advanced: FC = () => {
           // }
           handleModalVisible(false);
           let tmp = advancedOperation1.slice();
-          function formatDate (date, fmt) {
-            if(/(y+)/.test(fmt)){
-              fmt = fmt.replace(RegExp.$1,(date.getFullYear()+'').substr(4-RegExp.$1.length));
-            }
-            let o = {
-              'M+':date.getMonth() + 1,
-              'd+':date.getDate(),
-              'h+':date.getHours(),
-              'm+':date.getMinutes(),
-              's+':date.getSeconds()
-            };
-
-            // 遍历这个对象
-            for(let k in o){
-              if(new RegExp(`(${k})`).test(fmt)){
-                console.log(RegExp.$1)
-                let str = o[k] + '';
-                fmt = fmt.replace(RegExp.$1,(RegExp.$1.length===1)?str:padLeftZero(str));
-              }
-            }
-            return fmt;
-          };
-
-          function padLeftZero(str) {
-            return ('00' + str).substr(str.length);
-          }
           value.version = 'version ' + value.version;
           value = Object.assign(value, {name: 'user1', createdAt: formatDate(new Date(), 'yyyy-MM-dd hh:mm:ss')});
-          tmp.push(value);
+          tmp.unshift(value);
           setInitialState((s) => ({ ...s, versionList: tmp }));
         }}
       >
@@ -1462,6 +1463,11 @@ const Advanced: FC = () => {
           //     actionRef.current.reload();
           //   }
           // }
+          handleModalVisible1(false);
+          let tmp = advancedOperation2.slice();
+          value = Object.assign(value, {name: 'user1', createdAt: formatDate(new Date(), 'yyyy-MM-dd hh:mm:ss')});
+          tmp.unshift(value);
+          setInitialState((s) => ({ ...s, methodList: tmp }));
         }}
       >
         {/* <ProFormSelect
@@ -1524,7 +1530,7 @@ const Advanced: FC = () => {
           //   // addonAfter: '.com',
           // }}
           width="md"
-          name="name"
+          name="key"
         />
         <ProFormUploadButton
           label="APP应用测试方法jar包"
@@ -1540,7 +1546,7 @@ const Advanced: FC = () => {
         />
         <ProFormTextArea
           width="md"
-          name="desc"
+          name="description"
           label="APP应用测试方法简介"
           rules={[
             {
@@ -1563,6 +1569,17 @@ const Advanced: FC = () => {
           //     actionRef.current.reload();
           //   }
           // }
+          console.log('entity', fixedEntity);
+          handleModalVisible2(false);
+          let tmpHistory = advancedOperation.slice();
+          let tmpAuthority = advancedOperation3.slice();
+          let resHistory = tmpAuthority.filter((item) => { return item.name != fixedEntity.name });
+          value = Object.assign(value, {name: fixedEntity.name, createdAt: formatDate(new Date(), 'yyyy-MM-dd hh:mm:ss')});
+          console.log('value', value);
+          tmpHistory.unshift(value);
+          console.log('tmp', tmpHistory);
+          setInitialState((s) => ({ ...s, historyList: tmpHistory }));
+          setInitialState((s) => ({ ...s, authorityList: resHistory }));
         }}
       >
         <ProFormText
@@ -1575,7 +1592,7 @@ const Advanced: FC = () => {
           //   // addonAfter: '.com',
           // }}
           width="md"
-          name="name1"
+          name="avatar"
           rules={[
             {
               required: true,
@@ -1586,14 +1603,14 @@ const Advanced: FC = () => {
         <ProFormText
           label="申请权限"
           readonly={true}
-          initialValue="管理者"
+          initialValue="测试者"
           // placeholder="请输入版本号，格式要求为x.y.z"
           // fieldProps={{
           //   addonBefore: 'version',
           //   // addonAfter: '.com',
           // }}
           width="md"
-          name="name2"
+          name="authority"
           rules={[
             {
               required: true,
@@ -1604,7 +1621,7 @@ const Advanced: FC = () => {
         <ProFormTextArea
           label="申请理由"
           readonly={true}
-          initialValue="-"
+          initialValue="开发需要"
           rules={[
             {
               required: true,
@@ -1617,10 +1634,10 @@ const Advanced: FC = () => {
           //   // addonAfter: '.com',
           // }}
           width="md"
-          name="name3"
+          name="memo"
         />
         <ProFormRadio.Group
-          name="radio"
+          name="status"
           label="审批结果"
           rules={[
             {
@@ -1631,17 +1648,17 @@ const Advanced: FC = () => {
           options={[
             {
               label: '通过',
-              value: 'success',
+              value: 'agree',
             },
             {
               label: '驳回',
-              value: 'fail',
+              value: 'reject',
             },
           ]}
         />
         <ProFormTextArea
           width="md"
-          name="desc"
+          name="res"
           label="审批意见"
           rules={[
             {

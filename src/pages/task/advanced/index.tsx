@@ -258,7 +258,7 @@ const Advanced: FC = () => {
       dataIndex: 'name',
       key: 'name',
       render: (dom, entity) => {
-        return <Tag color={dom == 'user' ? 'green' : 'blue'}>{dom}</Tag>;
+        return <Tag color={dom === 'user1' ? 'green' : 'blue'}>{dom}</Tag>;
       },
     },
     {
