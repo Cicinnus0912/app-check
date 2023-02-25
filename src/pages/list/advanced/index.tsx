@@ -34,7 +34,7 @@ import React, { Fragment, useState, useRef } from 'react';
 import { ProTable } from '@ant-design/pro-table';
 // import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import classNames from 'classnames';
-import { useRequest } from 'umi';
+import { useModel, useRequest } from 'umi';
 import type { AdvancedProfileData, TableListItem, TableListPagination } from './data.d';
 import { rule, addRule, updateRule, removeRule } from './service';
 import type { ProColumns, ActionType } from '@ant-design/pro-table';
@@ -174,8 +174,30 @@ const Advanced: FC = () => {
     operationKey: 'tab1',
     tabActiveKey: 'detail',
   });
-  const { data = {}, loading } = useRequest<{ data: AdvancedProfileData }>(queryAppProfile);
-  const { advancedOperation, advancedOperation1, advancedOperation2, advancedOperation3, advancedOperation4, advancedOperation5 } = data;
+  const { initialState, setInitialState } = useModel('@@initialState');
+  const { loading } = useRequest<{ data: AdvancedProfileData }>(queryAppProfile);
+  // const { data = {}, loading } = useRequest<{ data: AdvancedProfileData }>(queryAppProfile);
+  const advancedOperation = initialState?.historyList;
+  const advancedOperation1 = initialState?.versionList;
+  const advancedOperation2 = initialState?.methodList;
+  const advancedOperation3 = initialState?.authorityList;
+  const advancedOperation4 = initialState?.taskList;
+  const advancedOperation5 = initialState?.problemList;
+  // const { 
+  //   advancedOperation, 
+  //   advancedOperation1, 
+  //   advancedOperation2, 
+  //   advancedOperation3, 
+  //   advancedOperation4, 
+  //   advancedOperation5 }
+  //  = {
+  //   initialState?.historyList,
+  //   initialState?.versionList,
+  //   initialState?.methodList,
+  //   initialState?.authorityList,
+  //   initialState?.taskList,
+  //   initialState?.problemList
+  // }
   const [createModalVisible, handleModalVisible] = useState<boolean>(false);
   const [createModalVisible1, handleModalVisible1] = useState<boolean>(false);
   const [createModalVisible2, handleModalVisible2] = useState<boolean>(false);
@@ -1303,6 +1325,38 @@ const Advanced: FC = () => {
           //     actionRef.current.reload();
           //   }
           // }
+          handleModalVisible(false);
+          let tmp = advancedOperation1.slice();
+          function formatDate (date, fmt) {
+            if(/(y+)/.test(fmt)){
+              fmt = fmt.replace(RegExp.$1,(date.getFullYear()+'').substr(4-RegExp.$1.length));
+            }
+            let o = {
+              'M+':date.getMonth() + 1,
+              'd+':date.getDate(),
+              'h+':date.getHours(),
+              'm+':date.getMinutes(),
+              's+':date.getSeconds()
+            };
+
+            // 遍历这个对象
+            for(let k in o){
+              if(new RegExp(`(${k})`).test(fmt)){
+                console.log(RegExp.$1)
+                let str = o[k] + '';
+                fmt = fmt.replace(RegExp.$1,(RegExp.$1.length===1)?str:padLeftZero(str));
+              }
+            }
+            return fmt;
+          };
+
+          function padLeftZero(str) {
+            return ('00' + str).substr(str.length);
+          }
+          value.version = 'version ' + value.version;
+          value = Object.assign(value, {name: 'user1', createdAt: formatDate(new Date(), 'yyyy-MM-dd hh:mm:ss')});
+          tmp.push(value);
+          setInitialState((s) => ({ ...s, versionList: tmp }));
         }}
       >
         {/* <ProFormSelect
@@ -1369,7 +1423,7 @@ const Advanced: FC = () => {
             // addonAfter: '.com',
           }}
           width="md"
-          name="name"
+          name="version"
         />
         <ProFormUploadButton
           label="APP应用安装包"
@@ -1385,7 +1439,7 @@ const Advanced: FC = () => {
         />
         <ProFormTextArea
           width="md"
-          name="desc"
+          name="description"
           label="应用版本信息"
           rules={[
             {

@@ -7,6 +7,7 @@ import RightContent from '@/components/RightContent';
 // import Footer from '@/components/Footer';
 import { currentUser as queryCurrentUser } from './services/ant-design-pro/api';
 import { rule } from './../src/pages/list/table-list/service'
+import { queryAppProfile } from './../src/pages/list/advanced/service'
 import { BookOutlined, LinkOutlined } from '@ant-design/icons';
 import defaultSettings from '../config/defaultSettings';
 
@@ -25,9 +26,16 @@ export async function getInitialState(): Promise<{
   settings?: Partial<LayoutSettings>;
   currentUser?: API.CurrentUser;
   appList?: any;
+  historyList?: any;
+  versionList?: any;
+  methodList?: any;
+  authorityList?: any;
+  taskList?: any;
+  problemList?: any;
   loading?: boolean;
   fetchUserInfo?: () => Promise<API.CurrentUser | undefined>;
   fetchAppList?: () => Promise<any>;
+  fetchAppData?: () => Promise<any>;
 }> {
   const fetchUserInfo = async () => {
     try {
@@ -38,9 +46,19 @@ export async function getInitialState(): Promise<{
     }
     return undefined;
   };
-  const fetchAppList =async () => {
+  const fetchAppList = async () => {
     try {
       const msg = await rule(1, 10);
+      return msg.data;
+    } catch (error) {
+      history.push(loginPath);
+    }
+    return undefined;
+  }
+  const fetchAppData = async () => {
+    try {
+      const msg = await queryAppProfile();
+      console.log('msg', msg)
       return msg.data;
     } catch (error) {
       history.push(loginPath);
@@ -51,16 +69,26 @@ export async function getInitialState(): Promise<{
   if (history.location.pathname !== loginPath) {
     const currentUser = await fetchUserInfo();
     const appList = await fetchAppList();
+    const { advancedOperation: historyList, advancedOperation1: versionList, advancedOperation2: methodList, advancedOperation3: authorityList, advancedOperation4: taskList, advancedOperation5: problemList } = await fetchAppData();
+    // const data = await fetchAppData();
+    // console.log('data', data);
     return {
       fetchUserInfo,
       currentUser,
       appList,
+      historyList,
+      versionList,
+      methodList,
+      authorityList,
+      taskList,
+      problemList,
       settings: defaultSettings,
     };
   }
   return {
     fetchUserInfo,
     fetchAppList,
+    fetchAppData,
     settings: defaultSettings,
   };
 }
