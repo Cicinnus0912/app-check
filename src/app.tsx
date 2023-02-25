@@ -6,6 +6,7 @@ import { history, Link } from 'umi';
 import RightContent from '@/components/RightContent';
 // import Footer from '@/components/Footer';
 import { currentUser as queryCurrentUser } from './services/ant-design-pro/api';
+import { rule } from './../src/pages/list/table-list/service'
 import { BookOutlined, LinkOutlined } from '@ant-design/icons';
 import defaultSettings from '../config/defaultSettings';
 
@@ -23,8 +24,10 @@ export const initialStateConfig = {
 export async function getInitialState(): Promise<{
   settings?: Partial<LayoutSettings>;
   currentUser?: API.CurrentUser;
+  appList?: any;
   loading?: boolean;
   fetchUserInfo?: () => Promise<API.CurrentUser | undefined>;
+  fetchAppList?: () => Promise<any>;
 }> {
   const fetchUserInfo = async () => {
     try {
@@ -35,17 +38,29 @@ export async function getInitialState(): Promise<{
     }
     return undefined;
   };
+  const fetchAppList =async () => {
+    try {
+      const msg = await rule(1, 10);
+      return msg.data;
+    } catch (error) {
+      history.push(loginPath);
+    }
+    return undefined;
+  }
   // 如果不是登录页面，执行
   if (history.location.pathname !== loginPath) {
     const currentUser = await fetchUserInfo();
+    const appList = await fetchAppList();
     return {
       fetchUserInfo,
       currentUser,
+      appList,
       settings: defaultSettings,
     };
   }
   return {
     fetchUserInfo,
+    fetchAppList,
     settings: defaultSettings,
   };
 }

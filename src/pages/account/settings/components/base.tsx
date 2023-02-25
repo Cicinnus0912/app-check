@@ -50,7 +50,7 @@ const BaseView: React.FC = () => {
   const { loading } = useRequest(() => {
     return queryCurrent();
   });
-  // console.log(222, initialState?.currentUser);
+  console.log(222, initialState);
   const currentUser = initialState?.currentUser;
 
   const getAvatarURL = () => {
@@ -77,6 +77,7 @@ const BaseView: React.FC = () => {
     setInitialState((s) => ({ ...s, currentUser: values }));
     message.success('更新基本信息成功');
   };
+  
   return (
     <div className={styles.baseView}>
       {loading ? null : (

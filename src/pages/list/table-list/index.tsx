@@ -18,10 +18,11 @@ import UpdateForm from './components/UpdateForm';
 import { rule, addRule, updateRule, removeRule } from './service';
 import type { TableListItem, TableListPagination } from './data';
 import OperationModal from './components/OperationModal';
-import { history } from 'umi';
+import { history, useModel } from 'umi';
 
 const TableList: React.FC = () => {
   /** 新建窗口的弹窗 */
+  const { initialState, setInitialState } = useModel('@@initialState');
   const [createModalVisible, handleModalVisible] = useState<boolean>(false);
   const [createAppVisible, handleAppVisible] = useState<boolean>(false);
   /** 分布更新窗口的弹窗 */
@@ -31,7 +32,8 @@ const TableList: React.FC = () => {
   const actionRef = useRef<ActionType>();
   const [currentRow, setCurrentRow] = useState<TableListItem>();
   const [selectedRowsState, setSelectedRows] = useState<TableListItem[]>([]);
-  const [tableList, setTableList] = useState<TableListItem[]>([]);
+  // const [tableList, setTableList] = useState<TableListItem[]>([]);
+  const [tableList, setTableList] = useState<TableListItem[]>(initialState?.appList);
   const [editableKeys, setEditableRowKeys] = useState<React.Key[]>([]);
   const [done, setDone] = useState<boolean>(false);
   /**
@@ -119,13 +121,14 @@ const TableList: React.FC = () => {
   const handleSubmit = (values: TableListItem) => {
     setDone(true);
     const tmp = tableList.slice();
-    console.log('test', values)
+    console.log('testvalues', values)
     tmp.push(values);
-    console.log('test', tmp)
+    console.log('testtmp', tmp)
     setTableList(tmp);
-    console.log('test', tableList)
-    // const method = values?.id ? 'update' : 'add';
-    // postRun(method, values);
+    console.log('testtableList', tableList);
+    setInitialState((s) => ({ ...s, appList: tmp }));
+    console.log(initialState)
+    // message.success('注册应用成功');
   };
 
   const columns: ProColumns<TableListItem>[] = [
@@ -309,7 +312,8 @@ const TableList: React.FC = () => {
             <PlusOutlined /> 注册应用
           </Button>,
         ]}
-        request={rule}
+        // dataSource={initialState?.appList}
+        // request={rule}
         value={tableList}
         onChange={setTableList}
         recordCreatorProps={false}
