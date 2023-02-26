@@ -59,29 +59,6 @@ import BraftEditor from 'braft-editor';
 // 引入编辑器样式
 import 'braft-editor/dist/index.css';
 
-const description = (
-  <RouteContext.Consumer>
-    {({ isMobile }) => (
-      <Descriptions className={styles.headerList} size="default" column={isMobile ? 1 : 1}>
-        <Descriptions.Item label="创建人员">user1</Descriptions.Item>
-        {/* <Descriptions.Item label="应用简介">
-          支付宝,全球领先的独立第三方支付平台,致力于为广大用户提供安全快速的电子支付/网上支付/安全支付/手机支付体验,及转账收款/水电煤缴费/信用卡还款/AA收款等生活服务应用。
-        </Descriptions.Item> */}
-        <Descriptions.Item label="成员信息">
-          管理者：<Tag color="green">user1</Tag> | 测试者：
-          <Tag color="blue">user2</Tag> | 参与者：<Tag color="">user3</Tag>
-        </Descriptions.Item>
-        <Descriptions.Item label="创建时间">2022-11-21</Descriptions.Item>
-        {/* <Descriptions.Item label="关联单据">
-          <a href="">12421</a>
-        </Descriptions.Item> */}
-        {/* <Descriptions.Item label="生效日期">2017-07-07 ~ 2017-08-08</Descriptions.Item> */}
-        {/* <Descriptions.Item label="备注">请于两个工作日内确认</Descriptions.Item> */}
-      </Descriptions>
-    )}
-  </RouteContext.Consumer>
-);
-
 /**
  * 添加节点
  *
@@ -170,19 +147,24 @@ type AdvancedState = {
 };
 
 const Advanced: FC = () => {
-  const [tabStatus, seTabStatus] = useState<AdvancedState>({
+  const [tabStatus, setTabStatus] = useState<AdvancedState>({
     operationKey: 'tab1',
     tabActiveKey: 'detail',
   });
   const { initialState, setInitialState } = useModel('@@initialState');
   const { loading } = useRequest<{ data: AdvancedProfileData }>(queryAppProfile);
   // const { data = {}, loading } = useRequest<{ data: AdvancedProfileData }>(queryAppProfile);
-  const advancedOperation = initialState?.historyList;
-  const advancedOperation1 = initialState?.versionList;
-  const advancedOperation2 = initialState?.methodList;
-  const advancedOperation3 = initialState?.authorityList;
-  const advancedOperation4 = initialState?.taskList;
-  const advancedOperation5 = initialState?.problemList;
+  const advancedOperation = initialState?.historyList || [];
+  const advancedOperation1 = initialState?.versionList || [];
+  const advancedOperation2 = initialState?.methodList || [];
+  const advancedOperation3 = initialState?.authorityList || [];
+  const advancedOperation4 = initialState?.taskList || [];
+  const advancedOperation5 = initialState?.problemList || [];
+
+  const list1 = initialState?.mMember || [];
+  const list2 = initialState?.tMember || [];
+  const list3 = initialState?.pMember || [];
+  const [memberList, setMemberList] = useState<any[]>([...list1, ...list2, ...list3] || []);
   // const { 
   //   advancedOperation, 
   //   advancedOperation1, 
@@ -211,6 +193,30 @@ const Advanced: FC = () => {
   const [currentRow, setCurrentRow] = useState<TableListItem>();
   const [fixedEntity, setFixEntity] = useState({});
   const [selectedRowsState, setSelectedRows] = useState<TableListItem[]>([]);
+
+  const description = (
+    <RouteContext.Consumer>
+      {({ isMobile }) => (
+        <Descriptions className={styles.headerList} size="default" column={isMobile ? 1 : 1}>
+          <Descriptions.Item label="创建人员">user1</Descriptions.Item>
+          {/* <Descriptions.Item label="应用简介">
+            支付宝,全球领先的独立第三方支付平台,致力于为广大用户提供安全快速的电子支付/网上支付/安全支付/手机支付体验,及转账收款/水电煤缴费/信用卡还款/AA收款等生活服务应用。
+          </Descriptions.Item> */}
+          <Descriptions.Item label="成员信息">
+            管理者：{list1?.map((item) => { return <Tag color="green">{item}</Tag>})} | 
+            测试者：{list2?.map((item) => { return <Tag color="blue">{item}</Tag>})} | 
+            参与者：{list3?.map((item) => { return <Tag color="">{item}</Tag>})}
+          </Descriptions.Item>
+          <Descriptions.Item label="创建时间">2022-11-21</Descriptions.Item>
+          {/* <Descriptions.Item label="关联单据">
+            <a href="">12421</a>
+          </Descriptions.Item> */}
+          {/* <Descriptions.Item label="生效日期">2017-07-07 ~ 2017-08-08</Descriptions.Item> */}
+          {/* <Descriptions.Item label="备注">请于两个工作日内确认</Descriptions.Item> */}
+        </Descriptions>
+      )}
+    </RouteContext.Consumer>
+  );
 
   const getVersionList = () => {
     const list = [];
@@ -788,6 +794,9 @@ const Advanced: FC = () => {
             disabled={dom == 'online'}
             onClick={() => {
               // handleModalVisible2(true);
+              entity.status = 'online';
+              advancedOperation5.map((item) => { if (item == entity) item.status = 'online'});
+              setInitialState((s) => ({...s, problemList: advancedOperation5}))
             }}
           >
             置完成
@@ -1275,10 +1284,10 @@ const Advanced: FC = () => {
     ),
   };
   const onTabChange = (tabActiveKey: string) => {
-    seTabStatus({ ...tabStatus, tabActiveKey });
+    setTabStatus({ ...tabStatus, tabActiveKey });
   };
   const onOperationTabChange = (key: string) => {
-    seTabStatus({ ...tabStatus, operationKey: key });
+    setTabStatus({ ...tabStatus, operationKey: key });
   };
   const padLeftZero = (str) => {
     return ('00' + str).substr(str.length);
@@ -1605,6 +1614,28 @@ const Advanced: FC = () => {
           let tmpHistory = advancedOperation.slice();
           let tmpAuthority = advancedOperation3.slice();
           let resHistory = tmpAuthority.filter((item) => { return item.name != fixedEntity.name });
+          console.log(1111111111, value.status)
+          if (value.status === 'agree') {
+            console.log(2222222222, fixedEntity.authority, fixedEntity.name)
+            switch(fixedEntity.authority) {
+              case '管理者':
+                list1?.push(fixedEntity.name);
+                setInitialState((s) => ({ ...s, pMember: list1 }));
+                break;
+              case '测试者':
+                list2?.push(fixedEntity.name);
+                setInitialState((s) => ({ ...s, tMember: list2 }));
+                break;
+              case '参与者':
+                list3?.push(fixedEntity.name);
+                setInitialState((s) => ({ ...s, mMember: list3 }));
+                break;
+              default:
+                break;
+            }
+            const list = [...list1, ...list2, ...list3];
+            setMemberList(list);
+          }
           value = Object.assign(value, {name: fixedEntity.name, createdAt: formatDate(new Date(), 'yyyy-MM-dd hh:mm:ss')});
           console.log('value', value);
           tmpHistory.unshift(value);
@@ -1712,6 +1743,15 @@ const Advanced: FC = () => {
           //     actionRef.current.reload();
           //   }
           // }
+          handleModalVisible4(false);
+          setShowDetail(false);
+          setTabStatus({ ...tabStatus, operationKey: 'tab5' });
+          console.log('ttsttsts', value, currentRow);
+          let tmp = advancedOperation5.slice();
+          value.createdAt = value.createdAt + ' 00:00:00';
+          value = Object.assign(value, {version: currentRow?.version, method: currentRow?.method, status: 'running'});
+          tmp.unshift(value);
+          setInitialState((s) => ({ ...s, problemList: tmp }));
         }}
       >
         {/* <Row gutter={16}> */}
@@ -1765,81 +1805,83 @@ const Advanced: FC = () => {
           <Col lg={6} md={12} sm={24}>
             <ProFormSelect
               label={fieldLabels.owner}
-              name="owner"
+              name="user1"
               rules={[{ required: true, message: '请选择当前指派人' }]}
               fieldProps={{
                 mode: 'multiple',
               }}
-              options={[
-                {
-                  label: 'user01',
-                  value: 'user01',
-                },
-                {
-                  label: 'user02',
-                  value: 'user02',
-                },
-                {
-                  label: 'user03',
-                  value: 'user03',
-                },
-                {
-                  label: 'user04',
-                  value: 'user04',
-                },
-                {
-                  label: 'user05',
-                  value: 'user05',
-                },
-                {
-                  label: 'user06',
-                  value: 'user06',
-                },
-              ]}
+              options={memberList}
+              // options={[
+              //   {
+              //     label: 'user01',
+              //     value: 'user01',
+              //   },
+              //   {
+              //     label: 'user02',
+              //     value: 'user02',
+              //   },
+              //   {
+              //     label: 'user03',
+              //     value: 'user03',
+              //   },
+              //   {
+              //     label: 'user04',
+              //     value: 'user04',
+              //   },
+              //   {
+              //     label: 'user05',
+              //     value: 'user05',
+              //   },
+              //   {
+              //     label: 'user06',
+              //     value: 'user06',
+              //   },
+              // ]}
               placeholder="请选择当前指派人"
             />
           </Col>
           <Col xl={{ span: 6, offset: 2 }} lg={{ span: 8 }} md={{ span: 12 }} sm={24}>
             <ProFormSelect
               label={fieldLabels.owner2}
-              name="owner2"
+              name="user2"
               fieldProps={{
                 mode: 'multiple',
               }}
               rules={[{ required: true, message: '请选择当前抄送人' }]}
-              options={[
-                {
-                  label: 'user01',
-                  value: 'user01',
-                },
-                {
-                  label: 'user02',
-                  value: 'user02',
-                },
-                {
-                  label: 'user03',
-                  value: 'user03',
-                },
-                {
-                  label: 'user04',
-                  value: 'user04',
-                },
-                {
-                  label: 'user05',
-                  value: 'user05',
-                },
-                {
-                  label: 'user06',
-                  value: 'user06',
-                },
-              ]}
+              options={memberList}
+              // options={[
+              //   {
+              //     label: 'user01',
+              //     value: 'user01',
+              //   },
+              //   {
+              //     label: 'user02',
+              //     value: 'user02',
+              //   },
+              //   {
+              //     label: 'user03',
+              //     value: 'user03',
+              //   },
+              //   {
+              //     label: 'user04',
+              //     value: 'user04',
+              //   },
+              //   {
+              //     label: 'user05',
+              //     value: 'user05',
+              //   },
+              //   {
+              //     label: 'user06',
+              //     value: 'user06',
+              //   },
+              // ]}
               placeholder="请选择当前抄送人"
             />
           </Col>
           <Col xl={{ span: 6, offset: 2 }} lg={{ span: 8 }} md={{ span: 12 }} sm={24}>
             <ProFormDatePicker
               label={fieldLabels.dateRange}
-              name="dateRange"
+              name="createdAt"
               fieldProps={{
                 style: {
                   width: '100%',

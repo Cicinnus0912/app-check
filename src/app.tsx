@@ -33,6 +33,9 @@ export async function getInitialState(): Promise<{
   taskList?: any;
   problemList?: any;
   loading?: boolean;
+  mMember?: Array<string>;
+  tMember?: Array<string>;
+  pMember?: Array<string>;
   fetchUserInfo?: () => Promise<API.CurrentUser | undefined>;
   fetchAppList?: () => Promise<any>;
   fetchAppData?: () => Promise<any>;
@@ -72,6 +75,9 @@ export async function getInitialState(): Promise<{
     const { advancedOperation: historyList, advancedOperation1: versionList, advancedOperation2: methodList, advancedOperation3: authorityList, advancedOperation4: taskList, advancedOperation5: problemList } = await fetchAppData();
     // const data = await fetchAppData();
     // console.log('data', data);
+    const mMember = ['user1'];
+    const tMember = ['user2'];
+    const pMember = ['user3'];
     return {
       fetchUserInfo,
       currentUser,
@@ -82,6 +88,9 @@ export async function getInitialState(): Promise<{
       authorityList,
       taskList,
       problemList,
+      mMember,
+      tMember,
+      pMember,
       settings: defaultSettings,
     };
   }
