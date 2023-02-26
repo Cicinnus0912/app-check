@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { UploadOutlined } from '@ant-design/icons';
 import { Button, Input, Upload, message } from 'antd';
 import ProForm, {
@@ -24,34 +24,36 @@ const validatorPhone = (rule: any, value: string[], callback: (message?: string)
   }
   callback();
 };
-// 头像组件 方便以后独立，增加裁剪之类的功能
-const AvatarView = ({ avatar }: { avatar: string }) => (
-  <>
-    <div className={styles.avatar_title}>头像</div>
-    <div className={styles.avatar}>
-      <img src={avatar} alt="avatar" />
-    </div>
-    <Upload showUploadList={false}>
-      <div className={styles.button_view}>
-        <Button>
-          <UploadOutlined />
-          更换头像
-        </Button>
-      </div>
-    </Upload>
-  </>
-);
 
 const BaseView: React.FC = () => {
   // const { data: currentUser, loading } = useRequest(() => {
   //   return queryCurrent();
   // });
   const { initialState, setInitialState } = useModel('@@initialState');
+  const [flag, setFlag] = useState<boolean>(false);
   const { loading } = useRequest(() => {
     return queryCurrent();
   });
   console.log(222, initialState);
   const currentUser = initialState?.currentUser;
+
+  // 头像组件 方便以后独立，增加裁剪之类的功能
+  const AvatarView = ({ avatar }: { avatar: string }) => (
+    <>
+      <div className={styles.avatar_title}>头像</div>
+      <div className={styles.avatar}>
+        <img src={flag ? 'https://i.postimg.cc/L5ssnBnS/ab4c84f240dc6d6d99c53667551f362.jpg' : avatar} alt="avatar" />
+      </div>
+      <Upload showUploadList={false} onChange={() => setFlag(true)} action="https://www.mocky.io/v2/5cc8019d300000980a055e76" >
+        <div className={styles.button_view}>
+          <Button>
+            <UploadOutlined />
+            更换头像
+          </Button>
+        </div>
+      </Upload>
+    </>
+  );
 
   const getAvatarURL = () => {
     if (currentUser) {
@@ -74,6 +76,8 @@ const BaseView: React.FC = () => {
 
   const handleFinish = async (values) => {
     await waitTime(500);
+    values.avatar = 'https://i.postimg.cc/L5ssnBnS/ab4c84f240dc6d6d99c53667551f362.jpg';
+    console.log('user', values);
     setInitialState((s) => ({ ...s, currentUser: values }));
     message.success('更新基本信息成功');
   };

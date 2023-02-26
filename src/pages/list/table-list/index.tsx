@@ -317,72 +317,7 @@ const TableList: React.FC = () => {
         value={tableList}
         onChange={setTableList}
         recordCreatorProps={false}
-        editable={{
-          type: 'multiple',
-          editableKeys,
-          onSave: async (rowKey, data, row) => {
-            await waitTime(2000);
-          },
-          onChange: setEditableRowKeys,
-        }}
       />
-      {/* <ProTable<TableListItem, TableListPagination>
-        headerTitle="测试表格"
-        actionRef={actionRef}
-        rowKey="key"
-        search={{
-          labelWidth: 120,
-        }}
-        toolBarRender={() => [
-          <Button
-            type="primary"
-            key="primary"
-            onClick={() => {
-              handleModalVisible(true);
-            }}
-          >
-            <PlusOutlined /> 新建
-          </Button>,
-        ]}
-        request={rule}
-        columns={columns}
-        rowSelection={{
-          onChange: (_, selectedRows) => {
-            setSelectedRows(selectedRows);
-          },
-        }}
-      /> */}
-      {selectedRowsState?.length > 0 && (
-        <FooterToolbar
-          extra={
-            <div>
-              已选择{' '}
-              <a
-                style={{
-                  fontWeight: 600,
-                }}
-              >
-                {selectedRowsState.length}
-              </a>{' '}
-              项 &nbsp;&nbsp;
-              <span>
-                服务调用次数总计 {selectedRowsState.reduce((pre, item) => pre + item.callNo!, 0)} 万
-              </span>
-            </div>
-          }
-        >
-          <Button
-            onClick={async () => {
-              await handleRemove(selectedRowsState);
-              setSelectedRows([]);
-              actionRef.current?.reloadAndRest?.();
-            }}
-          >
-            批量删除
-          </Button>
-          <Button type="primary">批量审批</Button>
-        </FooterToolbar>
-      )}
       <ModalForm
         title="权限申请"
         width="400px"
@@ -400,48 +335,17 @@ const TableList: React.FC = () => {
       >
         <ProFormSelect
           showSearch={true}
-          options={[
-            // {
-            //   value: 'alipay',
-            //   label: '支付宝',
-            // },
-            // {
-            //   value: 'baidu',
-            //   label: '百度',
-            // },
-            // {
-            //   value: 'wangyiyun',
-            //   label: '网易云',
-            // },
-            // {
-            //   value: 'tx',
-            //   label: '腾讯新闻',
-            // },
-            // {
-            //   value: 'meituan',
-            //   label: '美团',
-            // },
-            // {
-            //   value: 'xiecheng',
-            //   label: '携程',
-            // },
-            // {
-            //   value: 'yidong',
-            //   label: '中国移动',
-            // },
-            // {
-            //   value: 'chinaBank',
-            //   label: '中国银行',
-            // },
-            {
-              value: 'test1',
-              label: '测试应用1',
-            },
-            {
-              value: 'test2',
-              label: '测试应用2',
-            },
-          ]}
+          options={tableList.map((item) => { return item.name})}
+          // options={[
+          //   {
+          //     value: 'test1',
+          //     label: '测试应用1',
+          //   },
+          //   {
+          //     value: 'test2',
+          //     label: '测试应用2',
+          //   },
+          // ]}
           rules={[
             {
               required: true,

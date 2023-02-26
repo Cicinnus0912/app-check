@@ -506,6 +506,7 @@ const Advanced: FC = () => {
             key="editable"
             onClick={() => {
               handleModalVisible4(true);
+              setShowDetail(false);
             }}
           >
             生成问题修复任务
@@ -665,7 +666,7 @@ const Advanced: FC = () => {
       onFilter: true,
       valueEnum: {
         all: { text: '全部', status: 'Default' },
-        close: { text: '未开始', status: 'Default' },
+        // close: { text: '未开始', status: 'Default' },
         running: { text: '测试中', status: 'Processing' },
         online: { text: '已完成', status: 'Success' },
         error: { text: '异常', status: 'Error' },
@@ -685,7 +686,7 @@ const Advanced: FC = () => {
     },
     {
       title: '测试开始时间',
-      sorter: true,
+      // sorter: true,
       dataIndex: 'createdAt',
     },
     {
@@ -751,7 +752,7 @@ const Advanced: FC = () => {
     },
     {
       title: '截止日期',
-      sorter: true,
+      // sorter: true,
       width: 150,
       dataIndex: 'createdAt',
     },
@@ -764,10 +765,10 @@ const Advanced: FC = () => {
       onFilter: true,
       valueEnum: {
         all: { text: '全部', status: 'Default' },
-        close: { text: '未开始', status: 'Default' },
+        // close: { text: '未开始', status: 'Default' },
         running: { text: '修复中', status: 'Processing' },
         online: { text: '已完成', status: 'Success' },
-        error: { text: '异常', status: 'Error' },
+        // error: { text: '异常', status: 'Error' },
       },
     },
     {
@@ -795,7 +796,6 @@ const Advanced: FC = () => {
             onClick={() => {
               // handleModalVisible2(true);
               entity.status = 'online';
-              advancedOperation5.map((item) => { if (item == entity) item.status = 'online'});
               setInitialState((s) => ({...s, problemList: advancedOperation5}))
             }}
           >
@@ -1288,6 +1288,7 @@ const Advanced: FC = () => {
   };
   const onOperationTabChange = (key: string) => {
     setTabStatus({ ...tabStatus, operationKey: key });
+    console.log('tabChange', tabStatus, key)
   };
   const padLeftZero = (str) => {
     return ('00' + str).substr(str.length);
