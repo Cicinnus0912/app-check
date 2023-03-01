@@ -116,7 +116,7 @@ export default {
   'POST /api/login/account': async (req: Request, res: Response) => {
     const { password, username, type } = req.body;
     await waitTime(2000);
-    if (password === 'admin' && username === 'admin') {
+    if (password === 'admin' && username === '244271172@qq.com') {
       res.send({
         status: 'ok',
         type,
