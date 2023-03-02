@@ -270,9 +270,9 @@ const advancedOperation4 = [
     version: 'version 2.0.0',
     name: '遍历测试应用',
     avatar: 'https://i.postimg.cc/RZbXszL5/test.png', // 支付宝
-    status: 'online',
+    status: 'running',
     method: '图片替代文本测试',
-    progress: 100,
+    progress: 1,
     createdAt: '2023-01-15 14:38:42',
     page: tmp,
     user1: 'user04',

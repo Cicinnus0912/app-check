@@ -29,7 +29,7 @@ import {
   message
 } from 'antd';
 import { GridContent, PageContainer, RouteContext, FooterToolbar } from '@ant-design/pro-layout';
-import type { FC } from 'react';
+import { FC, useEffect } from 'react';
 import React, { Fragment, useState, useRef } from 'react';
 import { ProTable } from '@ant-design/pro-table';
 // import type { ActionType, ProColumns } from '@ant-design/pro-components';
@@ -158,8 +158,26 @@ const Advanced: FC = () => {
   const advancedOperation1 = initialState?.versionList || [];
   const advancedOperation2 = initialState?.methodList || [];
   const advancedOperation3 = initialState?.authorityList || [];
-  const advancedOperation4 = initialState?.taskList || [];
+  // const advancedOperation4 = initialState?.taskList || [];
+  const [advancedOperation4, setAdvancedOperation4] = useState(initialState?.taskList || []);
   const advancedOperation5 = initialState?.problemList || [];
+
+  useEffect(() => {
+    if (advancedOperation4[0].progress < 31) {
+      const timer = setInterval(() => {
+        const arr = advancedOperation4.slice();
+        arr[0].progress = arr[0].progress + 1;
+        console.log(arr[0].progress)
+        setAdvancedOperation4(arr);
+      }, 2000);
+      return () => clearInterval(timer);
+    } else {
+      const arr = advancedOperation4.slice();
+      arr[0].progress = 100;
+      arr[0].status = 'online';
+      setAdvancedOperation4(arr);
+    }
+  }, [advancedOperation4]);
 
   const list1 = initialState?.mMember || [];
   const list2 = initialState?.tMember || [];
